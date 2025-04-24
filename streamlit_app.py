@@ -1,27 +1,23 @@
 import streamlit as st
-import base64
 
-# Fungsi untuk mengatur background dari gambar lokal
-def set_background(image_file):
-    with open(image_file, "rb") as img:
-        encoded = base64.b64encode(img.read()).decode()
-
-    css = f'''
+# Menyisipkan CSS untuk mengganti background
+st.markdown(
+    """
     <style>
-    [data-testid="stAppViewContainer"] {{
-        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                          url("data:image/jpg;base64,{encoded}");
+    .stApp {
+        background-image: url('https://img.freepik.com/free-photo/healthy-fresh-pet-food-ingredients-dark-surface_1150-42089.jpg?t=st=1745509027~exp=1745512627~hmac=6dac757c01ffc1963af4755b696cdd5e1cd387be5d48145c3fdd54092468eff3&w=996');
         background-size: cover;
-        background-position: center top;
+        background-position: center;
         background-repeat: no-repeat;
-        background-attachment: fixed;
-    }}
+    }
     </style>
-    '''
-    st.markdown(css, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
-# Ganti dengan nama file gambar yang kamu upload
-set_background("/mnt/data/healthy-fresh-pet-food-ingredients-dark-surface.jpg")
+# Konten aplikasi Streamlit
+st.title("Aplikasi dengan Background Gambar Protein")
+st.write("Ini adalah aplikasi Streamlit dengan background gambar protein.")
 
 # Judul halaman
 st.markdown(
