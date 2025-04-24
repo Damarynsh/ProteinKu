@@ -1,4 +1,4 @@
 import streamlit as st
 
-st.title("HALOO!! SOBAT :red[PANGAN]")
+st.title("HALLOO SOBAT :red[PANGAN]")
 st.write("Yuk Cari Tahu Berapa Banyak Sih Kebutuhan _Protein_ harian kamu? 🤔")
