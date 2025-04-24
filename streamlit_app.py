@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title(" BERAPA SIH KEBUTUHAN PROTEIN HARIAN MU???")
+st.title("style='text-align: BERAPA SIH KEBUTUHAN PROTEIN HARIAN MU???")
 
 st.markdown("<h1 style='text-align: center; color: red;'> Halloo Sobat Pangan!! </h1>", unsafe_allow_html=True)
 
