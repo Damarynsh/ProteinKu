@@ -1,6 +1,4 @@
 import streamlit as st
 
 st.title("HAIII SOBAT :red[PANGAN]")
-st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
-)
+st.write("Yuk Cari Tahu Berapa Banyak Sih Kebutuhan Protein harian kamu?")
