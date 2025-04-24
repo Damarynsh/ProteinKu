@@ -1,6 +1,5 @@
 import streamlit as st
 
-# Gambar background dari URL (nomor 4 - variasi makanan tinggi protein)
 page_bg_img = '''
 <style>
 body {
@@ -14,7 +13,6 @@ background-repeat: no-repeat;
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Judul dengan teks 'PROTEIN' berwarna merah
 st.markdown(
     "<h1 style='text-align: center; color:white;'>BERAPA SIH KEBUTUHAN <span style='color: red;'>PROTEIN</span> HARIAN MU???</h1>",
     unsafe_allow_html=True
