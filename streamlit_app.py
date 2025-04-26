@@ -19,7 +19,7 @@ st.markdown(
 
 # Judul halaman
 st.markdown(
-    "<h1 style='text-align: center; color:white;'>🥩BERAPA SIH KEBUTUHAN <span style='color: red;'>PROTEIN</span> HARIAN MU???🥩</h1>",
+    "<h1 style='text-align: center; color:white;'>🥩BERAPA SIH KEBUTUHAN🥩 <span style='color: red;'>PROTEIN</span> HARIAN MU???</h1>",
     unsafe_allow_html=True
 )
 
