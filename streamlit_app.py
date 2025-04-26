@@ -22,7 +22,7 @@ st.markdown(
     /* Tombol */
     div.stButton > button {
         color: white;
-        background-color: #800000; /* Maroon */
+        background-image: linear-gradient(135deg, #FF6B6B, #FFD93D);
         border: none;
         border-radius: 12px;
         padding: 0.75em 2em;
@@ -32,13 +32,9 @@ st.markdown(
         transition: all 0.3s ease;
     }
     div.stButton > button:hover {
-        background-color: #a52a2a;
+        background-image: linear-gradient(135deg, #FFD93D, #FF6B6B);
         transform: scale(1.05);
     }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
     /* Watermark */
     .watermark {
