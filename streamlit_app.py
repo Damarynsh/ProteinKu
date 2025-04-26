@@ -152,4 +152,5 @@ tampilkan_halaman_awal()
 
 # Pindah ke halaman kalkulator setelah tombol diklik
 if st.button("💪 Mulai Hitung Kebutuhan Protein Saya!"):
+    # Tampilkan halaman kalkulator setelah tombol diklik
     tampilkan_kalkulator()
