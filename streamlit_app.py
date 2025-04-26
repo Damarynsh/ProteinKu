@@ -2,10 +2,10 @@ import streamlit as st
 import time
 import random
 
-# --- WAJIB: Set Page Config PALING ATAS ---
+# --- CONFIG HALAMAN ---
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-# --- Background CSS ---
+# --- CSS untuk Background ---
 st.markdown(
     """
     <style>
@@ -24,70 +24,49 @@ st.markdown(
 
 # --- DATA MAKANAN ---
 makanan_tersedia = {
-    "Ayam Dada": {"protein_per_100g": 30, "satuan": "gram"},
-    "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # 6.5g protein per butir
-    "Tempe": {"protein_per_100g": 19, "satuan": "gram"},
+    "Ayam": {"protein_per_100g": 27, "satuan": "gram"},
+    "Daging sapi": {"protein_per_100g": 26, "satuan": "gram"},
+    "Ikan salmon": {"protein_per_100g": 25, "satuan": "gram"},
+    "Ikan tuna": {"protein_per_100g": 23, "satuan": "gram"},
+    "Tempe": {"protein_per_100g": 20, "satuan": "gram"},
     "Tahu": {"protein_per_100g": 8, "satuan": "gram"},
-    "Greek Yogurt": {"protein_per_100g": 10, "satuan": "gram"},
-    "Ikan Salmon": {"protein_per_100g": 22, "satuan": "gram"},
-    "Ikan Tuna": {"protein_per_100g": 23, "satuan": "gram"},
-    "Daging Sapi": {"protein_per_100g": 26, "satuan": "gram"},
-    "Almond": {"protein_per_100g": 21, "satuan": "gram"},
-    "Kacang Edamame": {"protein_per_100g": 11, "satuan": "gram"},
-    "Kacang Hitam": {"protein_per_100g": 8, "satuan": "gram"},
-    "Kacang Tanah": {"protein_per_100g": 25, "satuan": "gram"},
-    "Keju Cottage": {"protein_per_100g": 11, "satuan": "gram"},
+    "Telur": {"protein_per_butir": 6.5, "satuan": "butir"},
     "Brokoli": {"protein_per_100g": 2.8, "satuan": "gram"},
-    "Oat": {"protein_per_100g": 13, "satuan": "gram"}
+    "Kacang tanah": {"protein_per_100g": 25, "satuan": "gram"},
+    "Oat": {"protein_per_100g": 16.9, "satuan": "gram"},
 }
 
-# --- FUNGSI HALAMAN AWAL ---
+# --- FUNGSI HALAMAN ---
 def halaman_awal():
     st.title("Seberapa banyak kebutuhan protein harian ku?")
     st.subheader("Halo sobat pangan! 👋")
-    st.markdown("""
-    Protein adalah salah satu zat gizi makro yang sangat penting untuk kesehatan tubuh manusia.  
-    Tubuh kita membutuhkan protein untuk membangun dan memperbaiki jaringan, termasuk otot, kulit, dan organ-organ vital.  
-    Protein juga berperan dalam pembentukan enzim, hormon, serta mendukung sistem kekebalan tubuh.  
-    Asupan protein yang cukup membantu menjaga massa otot, mendukung pertumbuhan, serta mempercepat pemulihan setelah aktivitas fisik.
+    st.write("""
+    Protein adalah nutrisi penting untuk membangun dan memperbaiki jaringan tubuh, 
+    termasuk otot, kulit, dan enzim. Mengonsumsi cukup protein membantu menjaga kesehatan tubuh, 
+    meningkatkan metabolisme, dan mendukung proses penyembuhan. Yuk, cari tahu berapa banyak protein yang kamu butuhkan setiap harinya!
     """)
-    
-    if st.button("Mulai Kalkulator ➡️", use_container_width=True):
+
+    if st.button("Mulai Hitung ➡️"):
         st.session_state.halaman = "kalkulator"
         st.rerun()
 
-# --- FUNGSI KALKULATOR ---
-def kalkulator_protein():
-    st.title("💪 Kalkulator Kebutuhan Protein Harian")
+def kalkulator():
+    st.title("Kalkulator Kebutuhan Protein Harian")
 
-    with st.form("form_protein"):
-        st.subheader("Masukkan Data Diri Kamu:")
-        gender = st.selectbox("Jenis Kelamin", ["Laki-laki", "Perempuan"])
-        age = st.number_input("Umur (tahun)", min_value=0, max_value=120, value=25)
-        height = st.number_input("Tinggi Badan (cm)", min_value=0, max_value=250, value=170)
-        weight = st.number_input("Berat Badan (kg)", min_value=0.0, max_value=200.0, value=60.0)
+    gender = st.selectbox("Jenis Kelamin:", ["Pria", "Wanita"])
+    age = st.number_input("Umur (tahun):", min_value=1, max_value=120)
+    height = st.number_input("Tinggi Badan (cm):", min_value=50, max_value=250)
+    weight = st.number_input("Berat Badan (kg):", min_value=10, max_value=300)
+    tujuan = st.selectbox("Tujuan kamu:", ["Menurunkan berat badan", "Menjaga berat badan", "Meningkatkan massa otot"])
+    jumlah_makan = st.selectbox("Berapa kali makan per hari?", [2, 3, 4, 5])
 
-        tujuan = st.selectbox(
-            "Apa Tujuan Fitness Kamu?",
-            ["Menurunkan berat badan", "Menjaga berat badan", "Meningkatkan massa otot"]
-        )
+    pilihan_makanan = st.multiselect(
+        "Pilih makanan yang kamu sukai:",
+        list(makanan_tersedia.keys()),
+        default=["Ayam", "Tempe", "Telur"]
+    )
 
-        jumlah_makan = st.number_input("Mau makan berapa kali sehari?", min_value=2, max_value=8, value=3)
-
-        pilihan_makanan = st.multiselect(
-            "🍽️ Pilih Makanan Favorit (bisa lebih dari satu)", 
-            list(makanan_tersedia.keys()), 
-            default=["Tempe", "Telur", "Ikan Salmon", "Tahu", "Kacang Tanah"]
-        )
-
-        submit = st.form_submit_button("Hitung Kebutuhan Protein")
-
-    if submit:
-        if not pilihan_makanan:
-            st.error("⚠️ Pilih minimal 1 makanan dulu ya!")
-            return
-        
-        # Simpan semua input ke session_state
+    if st.button("Hitung Kebutuhan Protein 🍽️"):
         st.session_state.gender = gender
         st.session_state.age = age
         st.session_state.height = height
@@ -95,24 +74,19 @@ def kalkulator_protein():
         st.session_state.tujuan = tujuan
         st.session_state.jumlah_makan = jumlah_makan
         st.session_state.pilihan_makanan = pilihan_makanan
+        loading_screen()
 
-        st.session_state.halaman = "loading"
-        st.rerun()
-
-# --- FUNGSI LOADING SCREEN DENGAN PROGRESS BAR ---
 def loading_screen():
     progress_text = "Tunggu ya, kita hitung dulu kebutuhan proteinmu..."
     my_bar = st.progress(0, text=progress_text)
 
     for percent_complete in range(100):
-        time.sleep(0.02)  # Kecepatan progress loading (semakin kecil makin cepat)
+        time.sleep(0.01)
         my_bar.progress(percent_complete + 1, text=progress_text)
 
     st.session_state.halaman = "hasil"
     st.rerun()
 
-
-# --- FUNGSI MENAMPILKAN HASIL ---
 def hasil_kalkulator():
     st.title("🎯 Hasil Kebutuhan Protein Kamu")
 
@@ -120,9 +94,10 @@ def hasil_kalkulator():
     tujuan = st.session_state.tujuan
     jumlah_makan = st.session_state.jumlah_makan
     pilihan_makanan = st.session_state.pilihan_makanan
+    age = st.session_state.age
 
-    # Kalkulasi kebutuhan protein
-    if st.session_state.age >= 60:
+    # Kalkulasi kebutuhan protein berdasarkan standar Kemenkes
+    if age >= 60:
         kebutuhan_protein = weight * 1.0
     else:
         if tujuan == "Menurunkan berat badan":
@@ -162,15 +137,18 @@ def hasil_kalkulator():
 
         st.write(", ".join(rekomendasi))
 
-# --- LOGIKA HALAMAN ---
-if 'halaman' not in st.session_state:
+    st.write("---")
+    if st.button("🔙 Kembali ke Kalkulator"):
+        st.session_state.halaman = "kalkulator"
+        st.rerun()
+
+# --- LOGIC NAVIGASI HALAMAN ---
+if "halaman" not in st.session_state:
     st.session_state.halaman = "awal"
 
 if st.session_state.halaman == "awal":
     halaman_awal()
 elif st.session_state.halaman == "kalkulator":
-    kalkulator_protein()
-elif st.session_state.halaman == "loading":
-    loading_screen()
+    kalkulator()
 elif st.session_state.halaman == "hasil":
     hasil_kalkulator()
