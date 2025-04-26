@@ -23,40 +23,40 @@ import random
 # Atur layout halaman
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-# Halaman Utama
-st.markdown(
-    """
-    <h1 style='text-align: center; font-size: 3em;'>Seberapa banyak kebutuhan protein harian ku?</h1>
-    """,
-    unsafe_allow_html=True
-)
+# Halaman Awal - Penjelasan
+def tampilkan_halaman_awal():
+    st.markdown(
+        """
+        <h1 style='text-align: center; font-size: 3em;'>Seberapa banyak kebutuhan protein harian ku?</h1>
+        """,
+        unsafe_allow_html=True
+    )
 
-st.markdown("---")
+    st.markdown("---")
 
-st.markdown(
-    """
-    <h2 style='text-align: center;'>Halo sobat pangan! 👋</h2>
-    """,
-    unsafe_allow_html=True
-)
+    st.markdown(
+        """
+        <h2 style='text-align: center;'>Halo sobat pangan! 👋</h2>
+        """,
+        unsafe_allow_html=True
+    )
 
-st.markdown(
-    """
-    <p style='text-align: center; font-size: 1.2em;'>
-    Protein adalah salah satu zat gizi makro yang sangat penting untuk kesehatan tubuh manusia. <br><br>
-    Tubuh kita membutuhkan protein untuk membangun dan memperbaiki jaringan, termasuk otot, kulit, dan organ-organ vital. 
-    Protein juga berperan dalam pembentukan enzim, hormon, serta mendukung sistem kekebalan tubuh. <br><br>
-    Asupan protein yang cukup membantu menjaga massa otot, mendukung pertumbuhan, serta mempercepat pemulihan setelah aktivitas fisik.
-    </p>
-    """,
-    unsafe_allow_html=True
-)
+    st.markdown(
+        """
+        <p style='text-align: center; font-size: 1.2em;'>
+        Protein adalah salah satu zat gizi makro yang sangat penting untuk kesehatan tubuh manusia. <br><br>
+        Tubuh kita membutuhkan protein untuk membangun dan memperbaiki jaringan, termasuk otot, kulit, dan organ-organ vital. 
+        Protein juga berperan dalam pembentukan enzim, hormon, serta mendukung sistem kekebalan tubuh. <br><br>
+        Asupan protein yang cukup membantu menjaga massa otot, mendukung pertumbuhan, serta mempercepat pemulihan setelah aktivitas fisik.
+        </p>
+        """,
+        unsafe_allow_html=True
+    )
 
-st.markdown("---")
+    st.markdown("---")
 
-# Tombol untuk membuka kalkulator
-if st.button("💪 Mulai Hitung Kebutuhan Protein Saya!"):
-    # Kalkulator Protein
+# Halaman Kalkulator - Setelah tombol ditekan
+def tampilkan_kalkulator():
     st.title("💪 Kalkulator Kebutuhan Protein Harian")
 
     # Data makanan
@@ -146,3 +146,10 @@ if st.button("💪 Mulai Hitung Kebutuhan Protein Saya!"):
                         rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
 
                 st.write(", ".join(rekomendasi))
+
+# Tampilkan halaman awal
+tampilkan_halaman_awal()
+
+# Pindah ke halaman kalkulator setelah tombol diklik
+if st.button("💪 Mulai Hitung Kebutuhan Protein Saya!"):
+    tampilkan_kalkulator()
