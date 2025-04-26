@@ -134,5 +134,5 @@ halaman = st.radio("Pilih Halaman", ("Halaman Penjelasan", "Kalkulator Protein")
 if halaman == "Halaman Penjelasan":
     tampilkan_halaman_awal()
 
-if halaman == "Kalkulator Protein":
+elif halaman == "Kalkulator Protein":
     tampilkan_kalkulator()
