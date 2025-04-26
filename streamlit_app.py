@@ -35,42 +35,30 @@ with st.form("protein_form"):
 
 if submit:
     # Menentukan kebutuhan protein berdasarkan jenis kelamin dan usia (referensi Kemenkes)
-    if gender == "Laki-laki":
-        if age >= 19:
-            kebutuhan_protein = 0.8 * weight  # 0.8g per kg berat badan
-    else:  # Perempuan
-        if age >= 19:
-            kebutuhan_protein = 0.8 * weight  # 0.8g per kg berat badan
-    
-    # Jika usia lebih tua (Lansia) sesuai Kemenkes
     if age >= 60:
-        kebutuhan_protein = weight * 1.0  # 1.0g per kg berat badan
+        kebutuhan_protein = weight * 1.0  # 1.0g per kg berat badan untuk lansia
+    else:
+        kebutuhan_protein = weight * 0.8  # 0.8g per kg berat badan untuk dewasa
 
-    st.success(f"🎯 Kebutuhan protein harian kamu sekitar {kebutuhan_protein:.1f} gram per hari.")
+    st.success(f"🎯 Kebutuhan protein harian kamu adalah {kebutuhan_protein:.1f} gram.")
 
-    # Rekomendasi makanan per porsi harian yang dibutuhkan
     st.subheader("🍽️ Rekomendasi Makanan untuk Memenuhi Protein Harian")
 
-    # Protein per porsi makanan
+    # Daftar makanan dan kandungan protein per porsi
     makanan = {
-        "Ayam Dada (100g)": 30,  # protein per 100g
-        "Telur (1 butir)": 6,     # protein per butir
-        "Tempe (100g)": 19,       # protein per 100g
-        "Tahu (100g)": 8,         # protein per 100g
-        "Greek Yogurt (100g)": 10, # protein per 100g
-        "Ikan Salmon (100g)": 22,  # protein per 100g
-        "Daging Sapi (100g)": 26,  # protein per 100g
-        "Almond (28g)": 6,         # protein per 28g
-        "Kacang Edamame (100g)": 11,  # protein per 100g
-        "Kacang Hitam (100g)": 8,    # protein per 100g
-        "Keju Cottage (100g)": 11    # protein per 100g
+        "Ayam Dada (100g)": 30,
+        "Telur (1 butir)": 6,
+        "Tempe (100g)": 19,
+        "Tahu (100g)": 8,
+        "Greek Yogurt (100g)": 10,
+        "Ikan Salmon (100g)": 22,
+        "Daging Sapi (100g)": 26,
+        "Almond (28g)": 6,
+        "Kacang Edamame (100g)": 11,
+        "Kacang Hitam (100g)": 8,
+        "Keju Cottage (100g)": 11
     }
 
-    rekomendasi = []
-    
     for makanan_item, protein_per_porsi in makanan.items():
         jumlah_porsi = kebutuhan_protein / protein_per_porsi
-        rekomendasi.append(f"- {makanan_item}: {jumlah_porsi:.1f} porsi")
-
-    # ❗ Perbaikan di sini:
-    st.write(*rekomendasi)  # pake * supaya tampil per baris
+        st.write(f"- {makanan_item}: {jumlah_porsi:.1f} porsi")
