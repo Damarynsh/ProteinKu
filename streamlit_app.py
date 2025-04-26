@@ -18,8 +18,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 import streamlit as st
+import pandas as pd
 
-st.title("💪 Kalkulator Kebutuhan Protein Harian")
+st.title("💪 Kalkulator Kebutuhan Protein Harian + Grafik")
 
 with st.form("protein_form"):
     st.subheader("Masukkan Data Diri Kamu:")
@@ -34,20 +35,41 @@ with st.form("protein_form"):
     submit = st.form_submit_button("Hitung Kebutuhan Protein")
 
 if submit:
-    # Logika kebutuhan protein berdasarkan tujuan
     if gender == "Laki-laki":
         base_protein = 1.2
     else:
         base_protein = 1.0
 
-    # Penyesuaian faktor berdasarkan tujuan
     if tujuan == "Menurunkan berat badan":
         faktor = 1.2
     elif tujuan == "Menjaga berat badan":
         faktor = 1.5
-    else:  # Meningkatkan massa otot
+    else:
         faktor = 1.8
 
     kebutuhan_protein = weight * base_protein * faktor
 
     st.success(f"🎯 Kebutuhan protein harian kamu sekitar {kebutuhan_protein:.1f} gram per hari.")
+
+    # Membuat Data Mingguan
+    minggu = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
+    kebutuhan_mingguan = [kebutuhan_protein for _ in range(7)]
+    
+    df = pd.DataFrame({
+        'Hari': minggu,
+        'Protein (gram)': kebutuhan_mingguan
+    })
+
+    st.subheader("📈 Target Protein Mingguan")
+    st.line_chart(df.set_index('Hari'))
+
+    # Rekomendasi makanan tinggi protein
+    st.subheader("🍽️ Rekomendasi Makanan Tinggi Protein")
+    st.info("""
+    - Ayam dada: 30g protein per 100g
+    - Telur: 6g protein per butir
+    - Tahu/Tempe: 10-15g protein per 100g
+    - Greek Yogurt: 10g protein per 100g
+    - Ikan (Salmon, Tuna): 20-25g protein per 100g
+    - Daging Sapi: 26g protein per 100g
+    """)
