@@ -203,7 +203,7 @@ st.markdown(
     <div class="watermark">
         <h4>POLITEKNIK AKA BOGOR</h4>
         <p>D3 PENJAMINAN MUTU INDUSTRI PANGAN</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Logo_Politeknik_Industri_Pangan.svg/512px-Logo_Politeknik_Industri_Pangan.svg.png" alt="Politeknik Logo"/>
+        <img src="https://aka.ac.id/wp-content/uploads/2023/03/aka-bogor-2021.png"/>
     </div>
     """, unsafe_allow_html=True
 )
