@@ -1,7 +1,10 @@
-
 import streamlit as st
+import random
 
-# CSS untuk background dengan overlay gelap
+# --- WAJIB: SETTING halaman PALING ATAS ---
+st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
+
+# --- Background CSS ---
 st.markdown(
     """
     <style>
@@ -17,13 +20,8 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-import streamlit as st
-import random
 
-# Konfigurasi halaman
-st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
-
-# --- Fungsi untuk halaman penjelasan ---
+# --- Halaman Penjelasan ---
 def tampilkan_halaman_awal():
     st.title("Seberapa banyak kebutuhan protein harian ku?")
     st.subheader("Halo sobat pangan! 👋")
@@ -34,13 +32,13 @@ def tampilkan_halaman_awal():
     Asupan protein yang cukup membantu menjaga massa otot, mendukung pertumbuhan, serta mempercepat pemulihan setelah aktivitas fisik.
     """)
 
-# --- Fungsi untuk halaman kalkulator ---
+# --- Halaman Kalkulator Protein ---
 def tampilkan_kalkulator():
     st.title("💪 Kalkulator Kebutuhan Protein Harian")
 
     makanan_tersedia = {
         "Ayam Dada": {"protein_per_100g": 30, "satuan": "gram"},
-        "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # 6.5g per butir
+        "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # 6.5g protein per butir
         "Tempe": {"protein_per_100g": 19, "satuan": "gram"},
         "Tahu": {"protein_per_100g": 8, "satuan": "gram"},
         "Greek Yogurt": {"protein_per_100g": 10, "satuan": "gram"},
@@ -84,6 +82,7 @@ def tampilkan_kalkulator():
             st.error("⚠️ Pilih minimal 1 makanan dulu ya!")
             return
 
+        # Kalkulasi kebutuhan protein berdasarkan kemenkes + tujuan
         if age >= 60:
             kebutuhan_protein = weight * 1.0
         else:
@@ -125,11 +124,10 @@ def tampilkan_kalkulator():
 
             st.write(", ".join(rekomendasi))
 
-# --- PILIH HALAMAN ---
+# --- Navigasi antara halaman ---
 menu = st.sidebar.selectbox("Navigasi", ["Halaman Penjelasan", "Kalkulator Protein"])
 
 if menu == "Halaman Penjelasan":
     tampilkan_halaman_awal()
-
 elif menu == "Kalkulator Protein":
     tampilkan_kalkulator()
