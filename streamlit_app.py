@@ -31,6 +31,9 @@ def tampilkan_halaman_awal():
     Protein juga berperan dalam pembentukan enzim, hormon, serta mendukung sistem kekebalan tubuh.  
     Asupan protein yang cukup membantu menjaga massa otot, mendukung pertumbuhan, serta mempercepat pemulihan setelah aktivitas fisik.
     """)
+    
+    if st.button("Mulai Kalkulator ➡️", use_container_width=True):
+        st.session_state.halaman = "kalkulator"
 
 # --- Halaman Kalkulator Protein ---
 def tampilkan_kalkulator():
@@ -124,10 +127,11 @@ def tampilkan_kalkulator():
 
             st.write(", ".join(rekomendasi))
 
-# --- Navigasi antara halaman ---
-menu = st.sidebar.selectbox("Navigasi", ["Halaman Penjelasan", "Kalkulator Protein"])
+# --- Main Program ---
+if 'halaman' not in st.session_state:
+    st.session_state.halaman = "awal"
 
-if menu == "Halaman Penjelasan":
+if st.session_state.halaman == "awal":
     tampilkan_halaman_awal()
-elif menu == "Kalkulator Protein":
+else:
     tampilkan_kalkulator()
