@@ -5,10 +5,11 @@ import random
 # --- CONFIG HALAMAN ---
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-# --- CSS untuk Background ---
+# --- CSS untuk Background dan Tombol ---
 st.markdown(
     """
     <style>
+    /* Background */
     .stApp {
         background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
                     url('https://img.freepik.com/free-photo/healthy-fresh-pet-food-ingredients-dark-surface_1150-42089.jpg?t=st=1745509027~exp=1745512627~hmac=6dac757c01ffc1963af4755b696cdd5e1cd387be5d48145c3fdd54092468eff3&w=996');
@@ -16,6 +17,23 @@ st.markdown(
         background-position: center;
         background-repeat: no-repeat;
         color: white;
+    }
+
+    /* Tombol */
+    div.stButton > button {
+        color: white;
+        background-image: linear-gradient(135deg, #FF6B6B, #FFD93D);
+        border: none;
+        border-radius: 12px;
+        padding: 0.75em 2em;
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    div.stButton > button:hover {
+        background-image: linear-gradient(135deg, #FFD93D, #FF6B6B);
+        transform: scale(1.05);
     }
     </style>
     """,
@@ -81,7 +99,7 @@ def loading_screen():
     my_bar = st.progress(0, text=progress_text)
 
     for percent_complete in range(100):
-        time.sleep(0.05)
+        time.sleep(0.01)
         my_bar.progress(percent_complete + 1, text=progress_text)
 
     st.session_state.halaman = "hasil"
