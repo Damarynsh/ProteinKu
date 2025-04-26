@@ -39,7 +39,7 @@ st.markdown(
     /* Watermark */
     .watermark {
         position: fixed;
-        top: 80px; /* Posisikan watermark sedikit lebih ke bawah */
+        top: 120px; /* Posisikan watermark sedikit lebih ke bawah */
         right: 10px;
         z-index: 9999;
         color: white;
@@ -52,13 +52,13 @@ st.markdown(
         font-weight: bold;
     }
     .watermark p {
-        margin: 0;
+        margin: 5px 0;  /* Sedikit jarak antar teks */
         font-size: 14px;  /* Ukuran font lebih besar */
     }
     .watermark img {
         width: 40px;  /* Ukuran logo lebih besar */
         height: 40px; /* Ukuran logo lebih besar */
-        margin-left: 5px;
+        margin-left: 10px;  /* Jarak antara teks dan gambar */
         vertical-align: middle;
     }
     </style>
