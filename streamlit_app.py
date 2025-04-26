@@ -1,3 +1,4 @@
+
 import streamlit as st
 
 # CSS untuk background dengan overlay gelap
@@ -58,7 +59,6 @@ if cek:
             kebutuhan_protein = weight * base_protein * faktor
 
             st.success(f"🎯 Kebutuhan protein harian kamu sekitar {kebutuhan_protein:.1f} gram per hari.")
-
 
 
 
