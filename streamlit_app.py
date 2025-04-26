@@ -19,12 +19,12 @@ st.markdown(
 )
 import streamlit as st
 
-st.title("💪 Kalkulator Kebutuhan Protein Harian (Dengan Kombinasi Makanan dan Tips)")
+st.title("💪 Kalkulator Kebutuhan Protein Harian (Dengan Kombinasi Makanan dan Tips Lengkap)")
 
 # Data makanan terbaru
 makanan_tersedia = {
     "Ayam Dada": {"protein_per_100g": 30, "satuan": "gram"},
-    "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # Akan dihitung 6.5g per butir
+    "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # 6.5g per butir
     "Tempe": {"protein_per_100g": 19, "satuan": "gram"},
     "Tahu": {"protein_per_100g": 8, "satuan": "gram"},
     "Greek Yogurt": {"protein_per_100g": 10, "satuan": "gram"},
@@ -78,25 +78,30 @@ if submit:
 
         st.subheader("📋 Rekomendasi Konsumsi Harianmu:")
 
-        kebutuhan_per_makanan = kebutuhan_protein / len(pilihan_makanan)
+        kebutuhan_per_makan = kebutuhan_protein / 3  # 3x makan
 
-        for makanan_item in pilihan_makanan:
-            data = makanan_tersedia[makanan_item]
-            protein_per_100g = data["protein_per_100g"]
-            satuan = data["satuan"]
+        sesi_makan = ["Sarapan", "Makan Siang", "Makan Malam"]
 
-            if makanan_item == "Telur":
-                protein_per_butir = 6.5  # 1 butir telur sekitar 6.5 gram protein
-                butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
-                st.write(f"- {makanan_item}: {butir_diperlukan:.1f} butir per hari")
-            else:
-                gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
-                st.write(f"- {makanan_item}: {gram_diperlukan:.0f} gram per hari")
+        for sesi in sesi_makan:
+            st.write(f"**{sesi}:**")
 
-        # Tambahkan tips makan
-        st.subheader("✨ Tips Membagi Konsumsi:")
-        st.write("👉 Disarankan membagi kebutuhan harian menjadi 3 kali makan:")
-        st.write("- Sarapan: 1/3 dari total kebutuhan")
-        st.write("- Makan Siang: 1/3 dari total kebutuhan")
-        st.write("- Makan Malam: 1/3 dari total kebutuhan")
-        st.write("Atau bisa disesuaikan dengan pola makanmu sehari-hari!")
+            kebutuhan_sesi = kebutuhan_per_makan
+            rekomendasi = []
+
+            # Bagi kebutuhan sesi ke makanan
+            for makanan_item in pilihan_makanan:
+                data = makanan_tersedia[makanan_item]
+                protein_per_100g = data["protein_per_100g"]
+                satuan = data["satuan"]
+
+                if makanan_item == "Telur":
+                    protein_per_butir = 6.5
+                    butir_diperlukan = kebutuhan_sesi / protein_per_butir
+                    rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
+                    break  # Pakai satu jenis saja untuk sesi ini
+                else:
+                    gram_diperlukan = (kebutuhan_sesi / protein_per_100g) * 100
+                    rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
+                    break  # Pakai satu jenis saja untuk sesi ini
+
+            st.write(", ".join(rekomendasi))
