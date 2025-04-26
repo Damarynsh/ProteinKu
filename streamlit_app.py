@@ -35,6 +35,32 @@ st.markdown(
         background-image: linear-gradient(135deg, #FFD93D, #FF6B6B);
         transform: scale(1.05);
     }
+
+    /* Watermark */
+    .watermark {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 9999;
+        color: white;
+        text-align: right;
+        font-family: "Arial", sans-serif;
+    }
+    .watermark h4 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .watermark p {
+        margin: 0;
+        font-size: 12px;
+    }
+    .watermark img {
+        width: 30px;
+        height: 30px;
+        margin-left: 5px;
+        vertical-align: middle;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -58,7 +84,7 @@ makanan_tersedia = {
 def halaman_awal():
     st.title("Seberapa banyak kebutuhan protein harian ku?")
     st.subheader("Halo sobat pangan! 👋")
-    st.write("""
+    st.write(""" 
     Protein adalah nutrisi penting untuk membangun dan memperbaiki jaringan tubuh, 
     termasuk otot, kulit, dan enzim. Mengonsumsi cukup protein membantu menjaga kesehatan tubuh, 
     meningkatkan metabolisme, dan mendukung proses penyembuhan. Yuk, cari tahu berapa banyak protein yang kamu butuhkan setiap harinya!
@@ -160,7 +186,7 @@ def hasil_kalkulator():
         st.session_state.halaman = "kalkulator"
         st.rerun()
 
-# --- LOGIC NAVIGASI HALAMAN ---
+# --- LOGIC NAVIGASI HALAMAN --- 
 if "halaman" not in st.session_state:
     st.session_state.halaman = "awal"
 
@@ -171,3 +197,13 @@ elif st.session_state.halaman == "kalkulator":
 elif st.session_state.halaman == "hasil":
     hasil_kalkulator()
 
+# --- Watermark ---
+st.markdown(
+    """
+    <div class="watermark">
+        <h4>POLITEKNIK AKA BOGOR</h4>
+        <p>D3 PENJAMINAN MUTU INDUSTRI PANGAN</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Logo_Politeknik_Industri_Pangan.svg/512px-Logo_Politeknik_Industri_Pangan.svg.png" alt="Politeknik Logo"/>
+    </div>
+    """, unsafe_allow_html=True
+)
