@@ -21,19 +21,23 @@ import streamlit as st
 
 st.title("💪 Kalkulator Kebutuhan Protein Harian (Dengan Kombinasi Makanan dan Tips)")
 
-# Data makanan
+# Data makanan terbaru
 makanan_tersedia = {
     "Ayam Dada": {"protein_per_100g": 30, "satuan": "gram"},
-    "Telur": {"protein_per_100g": 13, "satuan": "butir"},
+    "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # Akan dihitung 6.5g per butir
     "Tempe": {"protein_per_100g": 19, "satuan": "gram"},
     "Tahu": {"protein_per_100g": 8, "satuan": "gram"},
     "Greek Yogurt": {"protein_per_100g": 10, "satuan": "gram"},
     "Ikan Salmon": {"protein_per_100g": 22, "satuan": "gram"},
+    "Ikan Tuna": {"protein_per_100g": 23, "satuan": "gram"},
     "Daging Sapi": {"protein_per_100g": 26, "satuan": "gram"},
     "Almond": {"protein_per_100g": 21, "satuan": "gram"},
     "Kacang Edamame": {"protein_per_100g": 11, "satuan": "gram"},
     "Kacang Hitam": {"protein_per_100g": 8, "satuan": "gram"},
-    "Keju Cottage": {"protein_per_100g": 11, "satuan": "gram"}
+    "Kacang Tanah": {"protein_per_100g": 25, "satuan": "gram"},
+    "Keju Cottage": {"protein_per_100g": 11, "satuan": "gram"},
+    "Brokoli": {"protein_per_100g": 2.8, "satuan": "gram"},
+    "Oat": {"protein_per_100g": 13, "satuan": "gram"}
 }
 
 with st.form("protein_form"):
@@ -51,7 +55,7 @@ with st.form("protein_form"):
 
     pilihan_makanan = st.multiselect("🍽️ Pilih Makanan Favorit (bisa lebih dari satu)", 
                                      list(makanan_tersedia.keys()), 
-                                     default=["Tempe", "Telur"])
+                                     default=["Tempe", "Telur", "Ikan Salmon"])
 
     submit = st.form_submit_button("Hitung Kebutuhan Protein")
 
@@ -87,3 +91,12 @@ if submit:
                 st.write(f"- {makanan_item}: {butir_diperlukan:.1f} butir per hari")
             else:
                 gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
+                st.write(f"- {makanan_item}: {gram_diperlukan:.0f} gram per hari")
+
+        # Tambahkan tips makan
+        st.subheader("✨ Tips Membagi Konsumsi:")
+        st.write("👉 Disarankan membagi kebutuhan harian menjadi 3 kali makan:")
+        st.write("- Sarapan: 1/3 dari total kebutuhan")
+        st.write("- Makan Siang: 1/3 dari total kebutuhan")
+        st.write("- Makan Malam: 1/3 dari total kebutuhan")
+        st.write("Atau bisa disesuaikan dengan pola makanmu sehari-hari!")
