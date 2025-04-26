@@ -50,19 +50,29 @@ if submit:
 
     st.success(f"🎯 Kebutuhan protein harian kamu sekitar {kebutuhan_protein:.1f} gram per hari.")
 
-    # Rekomendasi makanan tinggi protein per porsi harian
-    st.subheader("🍽️ Rekomendasi Makanan Tinggi Protein per Porsi Harian")
+    # Rekomendasi makanan per porsi harian yang dibutuhkan
+    st.subheader("🍽️ Rekomendasi Makanan untuk Memenuhi Protein Harian")
 
-    st.info("""
-    - **Ayam Dada (100g):** 30g protein
-    - **Telur (1 butir):** 6g protein
-    - **Tempe (100g):** 19g protein
-    - **Tahu (100g):** 8g protein
-    - **Greek Yogurt (100g):** 10g protein
-    - **Ikan Salmon (100g):** 22g protein
-    - **Daging Sapi (100g):** 26g protein
-    - **Almond (28g):** 6g protein
-    - **Kacang Edamame (100g):** 11g protein
-    - **Kacang Hitam (100g):** 8g protein
-    - **Keju Cottage (100g):** 11g protein
-    """)
+    # Protein per porsi makanan
+    makanan = {
+        "Ayam Dada (100g)": 30,  # protein per 100g
+        "Telur (1 butir)": 6,     # protein per butir
+        "Tempe (100g)": 19,       # protein per 100g
+        "Tahu (100g)": 8,         # protein per 100g
+        "Greek Yogurt (100g)": 10, # protein per 100g
+        "Ikan Salmon (100g)": 22,  # protein per 100g
+        "Daging Sapi (100g)": 26,  # protein per 100g
+        "Almond (28g)": 6,         # protein per 28g
+        "Kacang Edamame (100g)": 11,  # protein per 100g
+        "Kacang Hitam (100g)": 8,    # protein per 100g
+        "Keju Cottage (100g)": 11    # protein per 100g
+    }
+
+    rekomendasi = []
+    
+    for makanan_item, protein_per_porsi in makanan.items():
+        jumlah_porsi = kebutuhan_protein / protein_per_porsi
+        rekomendasi.append(f"{makanan_item}: {jumlah_porsi:.1f} porsi")
+
+    # Tampilkan rekomendasi makanan
+    st.write("\n".join(rekomendasi))
