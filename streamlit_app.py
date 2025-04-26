@@ -45,17 +45,19 @@ st.markdown(
         color: white;
         text-align: right;
         font-family: "Arial", sans-serif;
+        display: flex;  /* Menggunakan flexbox */
+        justify-content: flex-end;
+        align-items: center;  /* Agar teks dan gambar sejajar secara vertikal */
     }
     .watermark h4 {
         margin: 0;
         font-size: 16px;  /* Ukuran font lebih kecil */
         font-weight: bold;
+        margin-right: 10px;  /* Memberikan jarak antara teks dan gambar */
     }
     .watermark img {
         width: 30px;  /* Ukuran logo lebih kecil */
         height: 30px; /* Ukuran logo lebih kecil */
-        margin-left: 10px;  /* Jarak antara teks dan gambar */
-        vertical-align: middle;
     }
     </style>
     """,
