@@ -114,4 +114,25 @@ def tampilkan_kalkulator():
                 rekomendasi = []
 
                 for makanan_item in makanan_dipakai:
+                    data = makanan_tersedia[makanan_item]
+                    satuan = data["satuan"]
 
+                    if makanan_item == "Telur":
+                        protein_per_butir = 6.5
+                        butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
+                        rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
+                    else:
+                        protein_per_100g = data["protein_per_100g"]
+                        gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
+                        rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
+
+                st.write(", ".join(rekomendasi))
+
+# Tampilkan halaman utama untuk navigasi
+halaman = st.radio("Pilih Halaman", ("Halaman Penjelasan", "Kalkulator Protein"))
+
+if halaman == "Halaman Penjelasan":
+    tampilkan_halaman_awal()
+
+if halaman == "Kalkulator Protein":
+    tampilkan_kalkulator()
