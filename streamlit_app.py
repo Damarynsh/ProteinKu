@@ -21,7 +21,7 @@ import streamlit as st
 
 st.title("💪 Kalkulator Kebutuhan Protein Harian (Dengan Kombinasi Makanan dan Tips Lengkap)")
 
-# Data makanan terbaru
+# Data makanan
 makanan_tersedia = {
     "Ayam Dada": {"protein_per_100g": 30, "satuan": "gram"},
     "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # 6.5g per butir
@@ -76,32 +76,29 @@ if submit:
 
         st.success(f"🎯 Kebutuhan protein harian kamu adalah {kebutuhan_protein:.1f} gram.")
 
-        st.subheader("📋 Rekomendasi Konsumsi Harianmu:")
+        st.subheader("📋 Tips Membagi Konsumsi Harianmu:")
 
         kebutuhan_per_makan = kebutuhan_protein / 3  # 3x makan
-
         sesi_makan = ["Sarapan", "Makan Siang", "Makan Malam"]
 
         for sesi in sesi_makan:
-            st.write(f"**{sesi}:**")
-
+            st.write(f"### {sesi}:")
             kebutuhan_sesi = kebutuhan_per_makan
             rekomendasi = []
 
-            # Bagi kebutuhan sesi ke makanan
+            kebutuhan_per_makanan = kebutuhan_sesi / len(pilihan_makanan)
+
             for makanan_item in pilihan_makanan:
                 data = makanan_tersedia[makanan_item]
-                protein_per_100g = data["protein_per_100g"]
                 satuan = data["satuan"]
 
                 if makanan_item == "Telur":
                     protein_per_butir = 6.5
-                    butir_diperlukan = kebutuhan_sesi / protein_per_butir
+                    butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
                     rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
-                    break  # Pakai satu jenis saja untuk sesi ini
                 else:
-                    gram_diperlukan = (kebutuhan_sesi / protein_per_100g) * 100
+                    protein_per_100g = data["protein_per_100g"]
+                    gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
                     rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
-                    break  # Pakai satu jenis saja untuk sesi ini
 
             st.write(", ".join(rekomendasi))
