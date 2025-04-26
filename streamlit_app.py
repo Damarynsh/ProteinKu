@@ -19,7 +19,7 @@ st.markdown(
 )
 import streamlit as st
 
-st.title("💪 Kalkulator Kebutuhan Protein Harian")
+st.title("💪 Kalkulator Kebutuhan Protein Harian (Kemenkes Indonesia)")
 
 with st.form("protein_form"):
     st.subheader("Masukkan Data Diri Kamu:")
@@ -34,19 +34,17 @@ with st.form("protein_form"):
     submit = st.form_submit_button("Hitung Kebutuhan Protein")
 
 if submit:
+    # Menentukan kebutuhan protein berdasarkan jenis kelamin dan usia (referensi Kemenkes)
     if gender == "Laki-laki":
-        base_protein = 1.2
-    else:
-        base_protein = 1.0
-
-    if tujuan == "Menurunkan berat badan":
-        faktor = 1.2
-    elif tujuan == "Menjaga berat badan":
-        faktor = 1.5
-    else:
-        faktor = 1.8
-
-    kebutuhan_protein = weight * base_protein * faktor
+        if age >= 19:
+            kebutuhan_protein = 0.8 * weight  # 0.8g per kg berat badan
+    else:  # Perempuan
+        if age >= 19:
+            kebutuhan_protein = 0.8 * weight  # 0.8g per kg berat badan
+    
+    # Jika usia lebih tua (Lansia) sesuai Kemenkes
+    if age >= 60:
+        kebutuhan_protein = weight * 1.0  # 1.0g per kg berat badan
 
     st.success(f"🎯 Kebutuhan protein harian kamu sekitar {kebutuhan_protein:.1f} gram per hari.")
 
