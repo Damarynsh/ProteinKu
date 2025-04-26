@@ -17,24 +17,6 @@ st.markdown(
         background-repeat: no-repeat;
         color: white;
     }
-    button {
-        background-color: #f63366;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        border-radius: 12px;
-        transition: background-color 0.3s;
-    }
-    button:hover {
-        background-color: #e6004c;
-    }
-    h1, h2, h3 {
-        color: #ffb703;
-    }
     </style>
     """,
     unsafe_allow_html=True
@@ -72,6 +54,7 @@ def halaman_awal():
     
     if st.button("Mulai Kalkulator ➡️", use_container_width=True):
         st.session_state.halaman = "kalkulator"
+        st.rerun()
 
 # --- FUNGSI KALKULATOR ---
 def kalkulator_protein():
@@ -114,12 +97,14 @@ def kalkulator_protein():
         st.session_state.pilihan_makanan = pilihan_makanan
 
         st.session_state.halaman = "loading"
+        st.rerun()
 
 # --- FUNGSI LOADING SCREEN ---
 def loading_screen():
     with st.spinner("Tunggu ya, kita hitung dulu kebutuhan proteinmu..."):
-        time.sleep(3)  # durasi loading
+        time.sleep(2.5)
     st.session_state.halaman = "hasil"
+    st.rerun()
 
 # --- FUNGSI MENAMPILKAN HASIL ---
 def hasil_kalkulator():
