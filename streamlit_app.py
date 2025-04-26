@@ -70,7 +70,7 @@ if submit:
     
     for makanan_item, protein_per_porsi in makanan.items():
         jumlah_porsi = kebutuhan_protein / protein_per_porsi
-        rekomendasi.append(f"{makanan_item}: {jumlah_porsi:.1f} porsi")
+        rekomendasi.append(f"- {makanan_item}: {jumlah_porsi:.1f} porsi")
 
-    # Tampilkan rekomendasi makanan
-    st.write("\n".join(rekomendasi))
+    # ❗ Perbaikan di sini:
+    st.write(*rekomendasi)  # pake * supaya tampil per baris
