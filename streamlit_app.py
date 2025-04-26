@@ -1,7 +1,6 @@
 import streamlit as st
-import random
 
-# --- WAJIB: SETTING halaman PALING ATAS ---
+# --- WAJIB: Set Page Config PALING ATAS ---
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
 # --- Background CSS ---
@@ -16,13 +15,47 @@ st.markdown(
         background-repeat: no-repeat;
         color: white;
     }
+    button {
+        background-color: #f63366;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 12px;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #e6004c;
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# --- Halaman Penjelasan ---
-def tampilkan_halaman_awal():
+# --- DATA MAKANAN ---
+makanan_tersedia = {
+    "Ayam Dada": {"protein_per_100g": 30, "satuan": "gram"},
+    "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # 6.5g protein per butir
+    "Tempe": {"protein_per_100g": 19, "satuan": "gram"},
+    "Tahu": {"protein_per_100g": 8, "satuan": "gram"},
+    "Greek Yogurt": {"protein_per_100g": 10, "satuan": "gram"},
+    "Ikan Salmon": {"protein_per_100g": 22, "satuan": "gram"},
+    "Ikan Tuna": {"protein_per_100g": 23, "satuan": "gram"},
+    "Daging Sapi": {"protein_per_100g": 26, "satuan": "gram"},
+    "Almond": {"protein_per_100g": 21, "satuan": "gram"},
+    "Kacang Edamame": {"protein_per_100g": 11, "satuan": "gram"},
+    "Kacang Hitam": {"protein_per_100g": 8, "satuan": "gram"},
+    "Kacang Tanah": {"protein_per_100g": 25, "satuan": "gram"},
+    "Keju Cottage": {"protein_per_100g": 11, "satuan": "gram"},
+    "Brokoli": {"protein_per_100g": 2.8, "satuan": "gram"},
+    "Oat": {"protein_per_100g": 13, "satuan": "gram"}
+}
+
+# --- FUNGSI HALAMAN AWAL ---
+def halaman_awal():
     st.title("Seberapa banyak kebutuhan protein harian ku?")
     st.subheader("Halo sobat pangan! 👋")
     st.markdown("""
@@ -35,31 +68,12 @@ def tampilkan_halaman_awal():
     if st.button("Mulai Kalkulator ➡️", use_container_width=True):
         st.session_state.halaman = "kalkulator"
 
-# --- Halaman Kalkulator Protein ---
-def tampilkan_kalkulator():
+# --- FUNGSI KALKULATOR ---
+def kalkulator_protein():
     st.title("💪 Kalkulator Kebutuhan Protein Harian")
-
-    makanan_tersedia = {
-        "Ayam Dada": {"protein_per_100g": 30, "satuan": "gram"},
-        "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # 6.5g protein per butir
-        "Tempe": {"protein_per_100g": 19, "satuan": "gram"},
-        "Tahu": {"protein_per_100g": 8, "satuan": "gram"},
-        "Greek Yogurt": {"protein_per_100g": 10, "satuan": "gram"},
-        "Ikan Salmon": {"protein_per_100g": 22, "satuan": "gram"},
-        "Ikan Tuna": {"protein_per_100g": 23, "satuan": "gram"},
-        "Daging Sapi": {"protein_per_100g": 26, "satuan": "gram"},
-        "Almond": {"protein_per_100g": 21, "satuan": "gram"},
-        "Kacang Edamame": {"protein_per_100g": 11, "satuan": "gram"},
-        "Kacang Hitam": {"protein_per_100g": 8, "satuan": "gram"},
-        "Kacang Tanah": {"protein_per_100g": 25, "satuan": "gram"},
-        "Keju Cottage": {"protein_per_100g": 11, "satuan": "gram"},
-        "Brokoli": {"protein_per_100g": 2.8, "satuan": "gram"},
-        "Oat": {"protein_per_100g": 13, "satuan": "gram"}
-    }
 
     with st.form("form_protein"):
         st.subheader("Masukkan Data Diri Kamu:")
-
         gender = st.selectbox("Jenis Kelamin", ["Laki-laki", "Perempuan"])
         age = st.number_input("Umur (tahun)", min_value=0, max_value=120, value=25)
         height = st.number_input("Tinggi Badan (cm)", min_value=0, max_value=250, value=170)
@@ -85,7 +99,7 @@ def tampilkan_kalkulator():
             st.error("⚠️ Pilih minimal 1 makanan dulu ya!")
             return
 
-        # Kalkulasi kebutuhan protein berdasarkan kemenkes + tujuan
+        # Kalkulasi kebutuhan protein standar Kemenkes
         if age >= 60:
             kebutuhan_protein = weight * 1.0
         else:
@@ -93,7 +107,7 @@ def tampilkan_kalkulator():
                 kebutuhan_protein = weight * 1.2
             elif tujuan == "Menjaga berat badan":
                 kebutuhan_protein = weight * 0.8
-            else:  # Meningkatkan massa otot
+            else:
                 kebutuhan_protein = weight * 1.6
 
         st.success(f"🎯 Kebutuhan protein harian kamu adalah {kebutuhan_protein:.1f} gram.")
@@ -102,12 +116,12 @@ def tampilkan_kalkulator():
 
         st.subheader("📋 Tips Membagi Konsumsi Harianmu:")
 
+        import random
         for i in range(1, jumlah_makan + 1):
             st.write(f"### Makan ke-{i}:")
             kebutuhan_sesi = kebutuhan_per_makan
 
             makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
-
             kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
 
             rekomendasi = []
@@ -127,11 +141,11 @@ def tampilkan_kalkulator():
 
             st.write(", ".join(rekomendasi))
 
-# --- Main Program ---
+# --- LOGIKA HALAMAN UTAMA ---
 if 'halaman' not in st.session_state:
     st.session_state.halaman = "awal"
 
 if st.session_state.halaman == "awal":
-    tampilkan_halaman_awal()
+    halaman_awal()
 else:
-    tampilkan_kalkulator()
+    kalkulator_protein()
