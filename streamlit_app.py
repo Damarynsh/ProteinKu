@@ -21,6 +21,21 @@ import streamlit as st
 
 st.title("💪 Kalkulator Kebutuhan Protein Harian (Dengan Kombinasi Makanan)")
 
+# Data makanan
+makanan_tersedia = {
+    "Ayam Dada": 30,
+    "Telur": 13,
+    "Tempe": 19,
+    "Tahu": 8,
+    "Greek Yogurt": 10,
+    "Ikan Salmon": 22,
+    "Daging Sapi": 26,
+    "Almond": 21,
+    "Kacang Edamame": 11,
+    "Kacang Hitam": 8,
+    "Keju Cottage": 11
+}
+
 with st.form("protein_form"):
     st.subheader("Masukkan Data Diri Kamu:")
 
@@ -34,26 +49,14 @@ with st.form("protein_form"):
         ("Menurunkan berat badan", "Menjaga berat badan", "Meningkatkan massa otot")
     )
 
-    st.subheader("🍽️ Pilih Makanan Favorit Kamu (bisa lebih dari satu)")
-    makanan_tersedia = {
-        "Ayam Dada": 30,
-        "Telur": 13,
-        "Tempe": 19,
-        "Tahu": 8,
-        "Greek Yogurt": 10,
-        "Ikan Salmon": 22,
-        "Daging Sapi": 26,
-        "Almond": 21,
-        "Kacang Edamame": 11,
-        "Kacang Hitam": 8,
-        "Keju Cottage": 11
-    }
-    pilihan_makanan = st.multiselect("Pilih Makanan:", list(makanan_tersedia.keys()), default=["Tempe", "Telur"])
+    pilihan_makanan = st.multiselect("🍽️ Pilih Makanan Favorit (bisa lebih dari satu)", 
+                                     list(makanan_tersedia.keys()), 
+                                     default=["Tempe", "Telur"])
 
     submit = st.form_submit_button("Hitung Kebutuhan Protein")
 
 if submit:
-    if len(pilihan_makanan) == 0:
+    if not pilihan_makanan:
         st.error("⚠️ Pilih minimal 1 makanan dulu ya!")
     else:
         # Hitung kebutuhan protein
@@ -69,9 +72,9 @@ if submit:
 
         st.success(f"🎯 Kebutuhan protein harian kamu adalah {kebutuhan_protein:.1f} gram.")
 
-        st.subheader("📋 Rekomendasi Konsumsi Harianmu:")
+        st.subheader("📋 Rekomendasi Konsumsi Harianmu (Dalam Gram)")
 
-        # Bagi kebutuhan protein secara merata ke pilihan makanan
+        # Bagi kebutuhan protein secara merata ke makanan
         kebutuhan_per_makanan = kebutuhan_protein / len(pilihan_makanan)
 
         for makanan_item in pilihan_makanan:
