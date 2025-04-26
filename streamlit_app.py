@@ -19,7 +19,7 @@ st.markdown(
 )
 import streamlit as st
 
-st.title("💪 Kalkulator Kebutuhan Protein Harian (Kemenkes Indonesia)")
+st.title("💪 Kalkulator Kebutuhan Protein Harian (Versi Lengkap)")
 
 with st.form("protein_form"):
     st.subheader("Masukkan Data Diri Kamu:")
@@ -28,23 +28,31 @@ with st.form("protein_form"):
     age = st.number_input("Umur (tahun)", min_value=0, max_value=120, value=25)
     height = st.number_input("Tinggi Badan (cm)", min_value=0, max_value=250, value=170)
     weight = st.number_input("Berat Badan (kg)", min_value=0.0, max_value=200.0, value=60.0)
-    
-    tujuan = st.selectbox("Tujuan Fitness Kamu", ("Menurunkan berat badan", "Menjaga berat badan", "Meningkatkan massa otot"))
+
+    tujuan = st.selectbox(
+        "Apa Tujuan Fitness Kamu?",
+        ("Menurunkan berat badan", "Menjaga berat badan", "Meningkatkan massa otot")
+    )
 
     submit = st.form_submit_button("Hitung Kebutuhan Protein")
 
 if submit:
-    # Menentukan kebutuhan protein berdasarkan jenis kelamin dan usia (referensi Kemenkes)
+    # Penentuan kebutuhan protein berdasarkan tujuan
     if age >= 60:
-        kebutuhan_protein = weight * 1.0  # 1.0g per kg berat badan untuk lansia
+        kebutuhan_protein = weight * 1.0  # Lansia tetap 1.0 g/kg
     else:
-        kebutuhan_protein = weight * 0.8  # 0.8g per kg berat badan untuk dewasa
+        if tujuan == "Menurunkan berat badan":
+            kebutuhan_protein = weight * 1.2
+        elif tujuan == "Menjaga berat badan":
+            kebutuhan_protein = weight * 0.8
+        elif tujuan == "Meningkatkan massa otot":
+            kebutuhan_protein = weight * 1.6
 
     st.success(f"🎯 Kebutuhan protein harian kamu adalah {kebutuhan_protein:.1f} gram.")
 
-    st.subheader("🍽️ Rekomendasi Makanan untuk Memenuhi Protein Harian")
+    # Rekomendasi makanan per porsi
+    st.subheader("🍽️ Rekomendasi Makanan untuk Memenuhi Protein Harian Kamu")
 
-    # Daftar makanan dan kandungan protein per porsi
     makanan = {
         "Ayam Dada (100g)": 30,
         "Telur (1 butir)": 6,
@@ -59,6 +67,8 @@ if submit:
         "Keju Cottage (100g)": 11
     }
 
+    # Tampilkan jumlah porsi masing-masing makanan
     for makanan_item, protein_per_porsi in makanan.items():
         jumlah_porsi = kebutuhan_protein / protein_per_porsi
         st.write(f"- {makanan_item}: {jumlah_porsi:.1f} porsi")
+
