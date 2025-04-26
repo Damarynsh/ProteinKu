@@ -20,27 +20,24 @@ st.markdown(
 import streamlit as st
 import random
 
-# Atur layout halaman
+# Konfigurasi halaman
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-# Halaman Awal - Penjelasan
+# --- Fungsi untuk halaman penjelasan ---
 def tampilkan_halaman_awal():
     st.title("Seberapa banyak kebutuhan protein harian ku?")
-    
     st.subheader("Halo sobat pangan! 👋")
-
     st.markdown("""
-    Protein adalah salah satu zat gizi makro yang sangat penting untuk kesehatan tubuh manusia. 
-    Tubuh kita membutuhkan protein untuk membangun dan memperbaiki jaringan, termasuk otot, kulit, dan organ-organ vital. 
-    Protein juga berperan dalam pembentukan enzim, hormon, serta mendukung sistem kekebalan tubuh. 
+    Protein adalah salah satu zat gizi makro yang sangat penting untuk kesehatan tubuh manusia.  
+    Tubuh kita membutuhkan protein untuk membangun dan memperbaiki jaringan, termasuk otot, kulit, dan organ-organ vital.  
+    Protein juga berperan dalam pembentukan enzim, hormon, serta mendukung sistem kekebalan tubuh.  
     Asupan protein yang cukup membantu menjaga massa otot, mendukung pertumbuhan, serta mempercepat pemulihan setelah aktivitas fisik.
     """)
 
-# Halaman Kalkulator - Setelah tombol ditekan
+# --- Fungsi untuk halaman kalkulator ---
 def tampilkan_kalkulator():
     st.title("💪 Kalkulator Kebutuhan Protein Harian")
 
-    # Data makanan
     makanan_tersedia = {
         "Ayam Dada": {"protein_per_100g": 30, "satuan": "gram"},
         "Telur": {"protein_per_100g": 13, "satuan": "butir"},  # 6.5g per butir
@@ -59,80 +56,80 @@ def tampilkan_kalkulator():
         "Oat": {"protein_per_100g": 13, "satuan": "gram"}
     }
 
-    # Masukkan data diri
-    with st.form("protein_form"):
+    with st.form("form_protein"):
         st.subheader("Masukkan Data Diri Kamu:")
 
-        gender = st.selectbox("Jenis Kelamin", ("Laki-laki", "Perempuan"))
+        gender = st.selectbox("Jenis Kelamin", ["Laki-laki", "Perempuan"])
         age = st.number_input("Umur (tahun)", min_value=0, max_value=120, value=25)
         height = st.number_input("Tinggi Badan (cm)", min_value=0, max_value=250, value=170)
         weight = st.number_input("Berat Badan (kg)", min_value=0.0, max_value=200.0, value=60.0)
 
         tujuan = st.selectbox(
             "Apa Tujuan Fitness Kamu?",
-            ("Menurunkan berat badan", "Menjaga berat badan", "Meningkatkan massa otot")
+            ["Menurunkan berat badan", "Menjaga berat badan", "Meningkatkan massa otot"]
         )
 
         jumlah_makan = st.number_input("Mau makan berapa kali sehari?", min_value=2, max_value=8, value=3)
 
-        pilihan_makanan = st.multiselect("🍽️ Pilih Makanan Favorit (bisa lebih dari satu)", 
-                                         list(makanan_tersedia.keys()), 
-                                         default=["Tempe", "Telur", "Ikan Salmon", "Tahu", "Kacang Tanah"])
+        pilihan_makanan = st.multiselect(
+            "🍽️ Pilih Makanan Favorit (bisa lebih dari satu)", 
+            list(makanan_tersedia.keys()), 
+            default=["Tempe", "Telur", "Ikan Salmon", "Tahu", "Kacang Tanah"]
+        )
 
         submit = st.form_submit_button("Hitung Kebutuhan Protein")
 
     if submit:
         if not pilihan_makanan:
             st.error("⚠️ Pilih minimal 1 makanan dulu ya!")
+            return
+
+        if age >= 60:
+            kebutuhan_protein = weight * 1.0
         else:
-            # Hitung kebutuhan protein
-            if age >= 60:
-                kebutuhan_protein = weight * 1.0
-            else:
-                if tujuan == "Menurunkan berat badan":
-                    kebutuhan_protein = weight * 1.2
-                elif tujuan == "Menjaga berat badan":
-                    kebutuhan_protein = weight * 0.8
-                elif tujuan == "Meningkatkan massa otot":
-                    kebutuhan_protein = weight * 1.6
+            if tujuan == "Menurunkan berat badan":
+                kebutuhan_protein = weight * 1.2
+            elif tujuan == "Menjaga berat badan":
+                kebutuhan_protein = weight * 0.8
+            else:  # Meningkatkan massa otot
+                kebutuhan_protein = weight * 1.6
 
-            st.success(f"🎯 Kebutuhan protein harian kamu adalah {kebutuhan_protein:.1f} gram.")
+        st.success(f"🎯 Kebutuhan protein harian kamu adalah {kebutuhan_protein:.1f} gram.")
 
-            st.subheader("📋 Tips Membagi Konsumsi Harianmu:")
+        kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
-            kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
+        st.subheader("📋 Tips Membagi Konsumsi Harianmu:")
 
-            for i in range(1, jumlah_makan + 1):
-                st.write(f"### Makan ke-{i}:")
-                kebutuhan_sesi = kebutuhan_per_makan
+        for i in range(1, jumlah_makan + 1):
+            st.write(f"### Makan ke-{i}:")
+            kebutuhan_sesi = kebutuhan_per_makan
 
-                # Acak makanan tiap sesi
-                makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))  # pilih 2 makanan berbeda tiap sesi
+            makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
 
-                kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
+            kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
 
-                rekomendasi = []
+            rekomendasi = []
 
-                for makanan_item in makanan_dipakai:
-                    data = makanan_tersedia[makanan_item]
-                    satuan = data["satuan"]
+            for makanan_item in makanan_dipakai:
+                data = makanan_tersedia[makanan_item]
+                satuan = data["satuan"]
 
-                    if makanan_item == "Telur":
-                        protein_per_butir = 6.5
-                        butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
-                        rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
-                    else:
-                        protein_per_100g = data["protein_per_100g"]
-                        gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
-                        rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
+                if makanan_item == "Telur":
+                    protein_per_butir = 6.5
+                    butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
+                    rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
+                else:
+                    protein_per_100g = data["protein_per_100g"]
+                    gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
+                    rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
 
-                st.write(", ".join(rekomendasi))
+            st.write(", ".join(rekomendasi))
 
-# Tampilkan halaman utama untuk navigasi
-halaman = st.radio("Pilih Halaman", ("Halaman Penjelasan", "Kalkulator Protein"))
+# --- PILIH HALAMAN ---
+menu = st.sidebar.selectbox("Navigasi", ["Halaman Penjelasan", "Kalkulator Protein"])
 
-if halaman == "Halaman Penjelasan":
+if menu == "Halaman Penjelasan":
     tampilkan_halaman_awal()
 
-elif halaman == "Kalkulator Protein":
+elif menu == "Kalkulator Protein":
     tampilkan_kalkulator()
