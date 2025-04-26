@@ -25,35 +25,16 @@ st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", lay
 
 # Halaman Awal - Penjelasan
 def tampilkan_halaman_awal():
-    st.markdown(
-        """
-        <h1 style='text-align: center; font-size: 3em;'>Seberapa banyak kebutuhan protein harian ku?</h1>
-        """,
-        unsafe_allow_html=True
-    )
+    st.title("Seberapa banyak kebutuhan protein harian ku?")
+    
+    st.subheader("Halo sobat pangan! 👋")
 
-    st.markdown("---")
-
-    st.markdown(
-        """
-        <h2 style='text-align: center;'>Halo sobat pangan! 👋</h2>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        """
-        <p style='text-align: center; font-size: 1.2em;'>
-        Protein adalah salah satu zat gizi makro yang sangat penting untuk kesehatan tubuh manusia. <br><br>
-        Tubuh kita membutuhkan protein untuk membangun dan memperbaiki jaringan, termasuk otot, kulit, dan organ-organ vital. 
-        Protein juga berperan dalam pembentukan enzim, hormon, serta mendukung sistem kekebalan tubuh. <br><br>
-        Asupan protein yang cukup membantu menjaga massa otot, mendukung pertumbuhan, serta mempercepat pemulihan setelah aktivitas fisik.
-        </p>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown("---")
+    st.markdown("""
+    Protein adalah salah satu zat gizi makro yang sangat penting untuk kesehatan tubuh manusia. 
+    Tubuh kita membutuhkan protein untuk membangun dan memperbaiki jaringan, termasuk otot, kulit, dan organ-organ vital. 
+    Protein juga berperan dalam pembentukan enzim, hormon, serta mendukung sistem kekebalan tubuh. 
+    Asupan protein yang cukup membantu menjaga massa otot, mendukung pertumbuhan, serta mempercepat pemulihan setelah aktivitas fisik.
+    """)
 
 # Halaman Kalkulator - Setelah tombol ditekan
 def tampilkan_kalkulator():
@@ -133,24 +114,4 @@ def tampilkan_kalkulator():
                 rekomendasi = []
 
                 for makanan_item in makanan_dipakai:
-                    data = makanan_tersedia[makanan_item]
-                    satuan = data["satuan"]
 
-                    if makanan_item == "Telur":
-                        protein_per_butir = 6.5
-                        butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
-                        rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
-                    else:
-                        protein_per_100g = data["protein_per_100g"]
-                        gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
-                        rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
-
-                st.write(", ".join(rekomendasi))
-
-# Tampilkan halaman awal
-tampilkan_halaman_awal()
-
-# Pindah ke halaman kalkulator setelah tombol diklik
-if st.button("💪 Mulai Hitung Kebutuhan Protein Saya!"):
-    # Tampilkan halaman kalkulator setelah tombol diklik
-    tampilkan_kalkulator()
