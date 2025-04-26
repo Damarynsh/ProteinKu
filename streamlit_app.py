@@ -56,8 +56,8 @@ st.markdown(
         margin-right: 10px;  /* Memberikan jarak antara teks dan gambar */
     }
     .watermark img {
-        width: 30px;  /* Ukuran logo lebih kecil */
-        height: 30px; /* Ukuran logo lebih kecil */
+        width: 50px;  /* Ukuran logo lebih kecil */
+        height: 50px; /* Ukuran logo lebih kecil */
     }
     </style>
     """,
