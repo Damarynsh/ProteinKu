@@ -99,12 +99,18 @@ def kalkulator_protein():
         st.session_state.halaman = "loading"
         st.rerun()
 
-# --- FUNGSI LOADING SCREEN ---
+# --- FUNGSI LOADING SCREEN DENGAN PROGRESS BAR ---
 def loading_screen():
-    with st.spinner("Tunggu ya, kita hitung dulu kebutuhan proteinmu..."):
-        time.sleep(2.5)
+    progress_text = "Tunggu ya, kita hitung dulu kebutuhan proteinmu..."
+    my_bar = st.progress(0, text=progress_text)
+
+    for percent_complete in range(100):
+        time.sleep(0.02)  # Kecepatan progress loading (semakin kecil makin cepat)
+        my_bar.progress(percent_complete + 1, text=progress_text)
+
     st.session_state.halaman = "hasil"
     st.rerun()
+
 
 # --- FUNGSI MENAMPILKAN HASIL ---
 def hasil_kalkulator():
