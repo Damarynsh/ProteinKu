@@ -38,8 +38,8 @@ st.markdown(
 
     /* Watermark */
     .watermark {
-        position: fixed;
-        bottom: 10px;  /* Posisikan watermark di bagian bawah */
+        position: relative;  /* Ganti menjadi relative agar ikut ter-scroll */
+        bottom: 0;
         right: 10px;
         z-index: 9999;
         color: white;
@@ -198,7 +198,7 @@ st.markdown(
     """
     <div class="watermark">
         <h4>POLITEKNIK AKA BOGOR</h4>
-        <img src="https://aka.ac.id/wp-content/uploads/2023/03/aka-bogor-2021.png"/>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Logo_Politeknik_Industri_Pangan.svg/512px-Logo_Politeknik_Industri_Pangan.svg.png" alt="Politeknik Logo"/>
     </div>
     """, unsafe_allow_html=True
 )
