@@ -18,8 +18,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 import streamlit as st
+import random
 
-st.title("💪 Kalkulator Kebutuhan Protein Harian (Dengan Kombinasi Makanan dan Tips Lengkap)")
+st.title("💪 Kalkulator Protein Harian dengan Variasi Makanan Setiap Makan!")
 
 # Data makanan
 makanan_tersedia = {
@@ -53,9 +54,11 @@ with st.form("protein_form"):
         ("Menurunkan berat badan", "Menjaga berat badan", "Meningkatkan massa otot")
     )
 
+    jumlah_makan = st.number_input("Mau makan berapa kali sehari?", min_value=2, max_value=8, value=3)
+
     pilihan_makanan = st.multiselect("🍽️ Pilih Makanan Favorit (bisa lebih dari satu)", 
                                      list(makanan_tersedia.keys()), 
-                                     default=["Tempe", "Telur", "Ikan Salmon"])
+                                     default=["Tempe", "Telur", "Ikan Salmon", "Tahu", "Kacang Tanah"])
 
     submit = st.form_submit_button("Hitung Kebutuhan Protein")
 
@@ -78,17 +81,20 @@ if submit:
 
         st.subheader("📋 Tips Membagi Konsumsi Harianmu:")
 
-        kebutuhan_per_makan = kebutuhan_protein / 3  # 3x makan
-        sesi_makan = ["Sarapan", "Makan Siang", "Makan Malam"]
+        kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
-        for sesi in sesi_makan:
-            st.write(f"### {sesi}:")
+        for i in range(1, jumlah_makan + 1):
+            st.write(f"### Makan ke-{i}:")
             kebutuhan_sesi = kebutuhan_per_makan
+
+            # Acak makanan tiap sesi
+            makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))  # pilih 2 makanan berbeda tiap sesi
+
+            kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
+
             rekomendasi = []
 
-            kebutuhan_per_makanan = kebutuhan_sesi / len(pilihan_makanan)
-
-            for makanan_item in pilihan_makanan:
+            for makanan_item in makanan_dipakai:
                 data = makanan_tersedia[makanan_item]
                 satuan = data["satuan"]
 
