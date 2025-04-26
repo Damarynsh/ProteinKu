@@ -48,16 +48,12 @@ st.markdown(
     }
     .watermark h4 {
         margin: 0;
-        font-size: 22px;  /* Ukuran font lebih besar */
+        font-size: 16px;  /* Ukuran font lebih kecil */
         font-weight: bold;
     }
-    .watermark p {
-        margin: 5px 0;  /* Sedikit jarak antar teks */
-        font-size: 14px;  /* Ukuran font lebih kecil */
-    }
     .watermark img {
-        width: 40px;  /* Ukuran logo lebih besar */
-        height: 40px; /* Ukuran logo lebih besar */
+        width: 30px;  /* Ukuran logo lebih kecil */
+        height: 30px; /* Ukuran logo lebih kecil */
         margin-left: 10px;  /* Jarak antara teks dan gambar */
         vertical-align: middle;
     }
@@ -202,9 +198,7 @@ st.markdown(
     """
     <div class="watermark">
         <h4>POLITEKNIK AKA BOGOR</h4>
-        <p>D3 PENJAMINAN MUTU INDUSTRI PANGAN</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Logo_Politeknik_Industri_Pangan.svg/512px-Logo_Politeknik_Industri_Pangan.svg.png" alt="Politeknik Logo"/>
+        <img src="https://aka.ac.id/wp-content/uploads/2023/03/aka-bogor-2021.png"/>
     </div>
     """, unsafe_allow_html=True
 )
-
