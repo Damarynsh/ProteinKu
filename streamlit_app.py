@@ -1,4 +1,6 @@
 import streamlit as st
+import time
+import random
 
 # --- WAJIB: Set Page Config PALING ATAS ---
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
@@ -29,6 +31,9 @@ st.markdown(
     }
     button:hover {
         background-color: #e6004c;
+    }
+    h1, h2, h3 {
+        color: #ffb703;
     }
     </style>
     """,
@@ -98,54 +103,83 @@ def kalkulator_protein():
         if not pilihan_makanan:
             st.error("⚠️ Pilih minimal 1 makanan dulu ya!")
             return
+        
+        # Simpan semua input ke session_state
+        st.session_state.gender = gender
+        st.session_state.age = age
+        st.session_state.height = height
+        st.session_state.weight = weight
+        st.session_state.tujuan = tujuan
+        st.session_state.jumlah_makan = jumlah_makan
+        st.session_state.pilihan_makanan = pilihan_makanan
 
-        # Kalkulasi kebutuhan protein standar Kemenkes
-        if age >= 60:
-            kebutuhan_protein = weight * 1.0
+        st.session_state.halaman = "loading"
+
+# --- FUNGSI LOADING SCREEN ---
+def loading_screen():
+    with st.spinner("Tunggu ya, kita hitung dulu kebutuhan proteinmu..."):
+        time.sleep(3)  # durasi loading
+    st.session_state.halaman = "hasil"
+
+# --- FUNGSI MENAMPILKAN HASIL ---
+def hasil_kalkulator():
+    st.title("🎯 Hasil Kebutuhan Protein Kamu")
+
+    weight = st.session_state.weight
+    tujuan = st.session_state.tujuan
+    jumlah_makan = st.session_state.jumlah_makan
+    pilihan_makanan = st.session_state.pilihan_makanan
+
+    # Kalkulasi kebutuhan protein
+    if st.session_state.age >= 60:
+        kebutuhan_protein = weight * 1.0
+    else:
+        if tujuan == "Menurunkan berat badan":
+            kebutuhan_protein = weight * 1.2
+        elif tujuan == "Menjaga berat badan":
+            kebutuhan_protein = weight * 0.8
         else:
-            if tujuan == "Menurunkan berat badan":
-                kebutuhan_protein = weight * 1.2
-            elif tujuan == "Menjaga berat badan":
-                kebutuhan_protein = weight * 0.8
+            kebutuhan_protein = weight * 1.6
+
+    kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
+
+    st.markdown(f"<h2 style='text-align: center;'>✨ Kamu membutuhkan {kebutuhan_protein:.1f} gram protein setiap hari! ✨</h2>", unsafe_allow_html=True)
+    st.write("---")
+
+    st.subheader("Tips Konsumsi Harian:")
+
+    for i in range(1, jumlah_makan + 1):
+        st.write(f"### 🍽️ Makan ke-{i}:")
+        kebutuhan_sesi = kebutuhan_per_makan
+
+        makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
+        kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
+
+        rekomendasi = []
+        for makanan_item in makanan_dipakai:
+            data = makanan_tersedia[makanan_item]
+            satuan = data["satuan"]
+
+            if makanan_item == "Telur":
+                protein_per_butir = 6.5
+                butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
+                rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
             else:
-                kebutuhan_protein = weight * 1.6
+                protein_per_100g = data["protein_per_100g"]
+                gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
+                rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
 
-        st.success(f"🎯 Kebutuhan protein harian kamu adalah {kebutuhan_protein:.1f} gram.")
+        st.write(", ".join(rekomendasi))
 
-        kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
-
-        st.subheader("📋 Tips Membagi Konsumsi Harianmu:")
-
-        import random
-        for i in range(1, jumlah_makan + 1):
-            st.write(f"### Makan ke-{i}:")
-            kebutuhan_sesi = kebutuhan_per_makan
-
-            makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
-            kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
-
-            rekomendasi = []
-
-            for makanan_item in makanan_dipakai:
-                data = makanan_tersedia[makanan_item]
-                satuan = data["satuan"]
-
-                if makanan_item == "Telur":
-                    protein_per_butir = 6.5
-                    butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
-                    rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
-                else:
-                    protein_per_100g = data["protein_per_100g"]
-                    gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
-                    rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
-
-            st.write(", ".join(rekomendasi))
-
-# --- LOGIKA HALAMAN UTAMA ---
+# --- LOGIKA HALAMAN ---
 if 'halaman' not in st.session_state:
     st.session_state.halaman = "awal"
 
 if st.session_state.halaman == "awal":
     halaman_awal()
-else:
+elif st.session_state.halaman == "kalkulator":
     kalkulator_protein()
+elif st.session_state.halaman == "loading":
+    loading_screen()
+elif st.session_state.halaman == "hasil":
+    hasil_kalkulator()
