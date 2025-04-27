@@ -62,9 +62,18 @@ st.markdown(
         transition: transform 0.3s ease-in-out;
     }
 
-    .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Styling for each meal box */
+    .meal-box {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 15px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Text Styling for header and recommendation */
+    h3, h4 {
+        text-align: center;
     }
 
     .watermark img {
@@ -174,7 +183,7 @@ def hasil_kalkulator():
     # Card Styling for tips
     for i in range(1, jumlah_makan + 1):
         with st.container():
-            st.markdown('<div class="card">', unsafe_allow_html=True)
+            st.markdown('<div class="meal-box">', unsafe_allow_html=True)
             st.write(f"### 🍽️ Makan ke-{i}:")
             
             kebutuhan_sesi = kebutuhan_per_makan
