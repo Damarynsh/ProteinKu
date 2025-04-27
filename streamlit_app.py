@@ -101,6 +101,7 @@ def halaman_awal():
     meningkatkan metabolisme, dan mendukung proses penyembuhan. Yuk, cari tahu berapa banyak protein yang kamu butuhkan setiap harinya!
     """)
     
+    # Menampilkan tombol untuk melanjutkan ke kalkulator
     if st.button("Mulai Hitung ➡️"):
         st.session_state.halaman = "kalkulator"
         st.rerun()
@@ -121,6 +122,7 @@ def kalkulator():
         default=["Ayam", "Tempe", "Telur"]
     )
 
+    # Tombol hitung protein
     if st.button("Hitung Kebutuhan Protein 🍽️"):
         st.session_state.gender = gender
         st.session_state.age = age
