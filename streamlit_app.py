@@ -152,7 +152,7 @@ def loading_screen():
     st.rerun()
 
 def hasil_kalkulator():
-    st.title("🔥Hasil Kebutuhan Protein Kamu🔥")
+    st.title("🔥Hasil Kebutuhan Proteinmu🔥")
 
     weight = st.session_state.weight
     tujuan = st.session_state.tujuan
