@@ -152,7 +152,7 @@ def loading_screen():
     st.rerun()
 
 def hasil_kalkulator():
-    st.title("🔥Hasil Kebutuhan Protein Kamu")
+    st.title("🔥Hasil Kebutuhan Protein Kamu🔥")
 
     weight = st.session_state.weight
     tujuan = st.session_state.tujuan
@@ -173,7 +173,7 @@ def hasil_kalkulator():
 
     kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
-    st.markdown(f"<h2 style='text-align: center;'> Kamu membutuhkan {kebutuhan_protein:.1f} gram protein setiap hari! </h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='text-align: center;'>✨ Kamu membutuhkan {kebutuhan_protein:.1f} gram protein setiap hari! ✨</h2>", unsafe_allow_html=True)
     st.write("---")
 
     st.subheader("Tips Konsumsi Harian:")
