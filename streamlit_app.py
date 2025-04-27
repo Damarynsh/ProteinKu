@@ -197,7 +197,7 @@ elif st.session_state.halaman == "hasil":
 st.markdown(
     """
     <div class="footer">
-        © 2025 POLITEKNIK AKA BOGOR - All rights reserved.
+        © 2025 POLITEKNIK AKA BOGOR - D3 Penjaminan Mutu Industri Pangan.
     </div>
     """,
     unsafe_allow_html=True
