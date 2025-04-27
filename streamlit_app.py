@@ -5,7 +5,7 @@ import random
 # --- CONFIG HALAMAN ---
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-# --- CSS untuk Background, Tombol, dan Mode ---
+# --- CSS untuk Background dan Tombol ---
 st.markdown(
     """
     <style>
@@ -19,15 +19,10 @@ st.markdown(
         color: white;
     }
 
-    /* Dark Mode dan Light Mode Teks dan Tombol */
-    .css-1g8j6ts {
-        color: #FFF !important; /* default text color white */
-    }
-    
-    /* Tombol untuk Light Mode (Merah) */
+    /* Tombol */
     div.stButton > button {
         color: white;
-        background-color: #FF6B6B; /* merah */
+        background-color: #FF6B6B;
         border: none;
         border-radius: 12px;
         padding: 0.75em 2em;
@@ -36,43 +31,27 @@ st.markdown(
         cursor: pointer;
         transition: all 0.3s ease;
     }
-
     div.stButton > button:hover {
-        background-color: #FF4B4B;
+        background-color: #FF4F4F;
         transform: scale(1.05);
     }
 
-    /* Tombol untuk Dark Mode (Pink) */
-    .dark .stButton > button {
-        color: white;
-        background-color: #FF77A9; /* pink */
-        border: none;
-        border-radius: 12px;
-        padding: 0.75em 2em;
-        font-size: 1.2em;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .dark .stButton > button:hover {
-        background-color: #FF4E76;
-        transform: scale(1.05);
-    }
-
-    /* Footer */
-    .footer {
+    /* Watermark */
+    .watermark {
         position: fixed;
         bottom: 10px;
-        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 1.1em;
+        font-weight: bold;
         text-align: center;
-        font-size: 12px;
-        color: #fff;
+        z-index: 9999;
     }
-
-    .footer img {
-        height: 30px;
+    .watermark img {
+        width: 50px;
         vertical-align: middle;
+        margin-left: 10px;
     }
     </style>
     """,
@@ -97,12 +76,12 @@ makanan_tersedia = {
 def halaman_awal():
     st.title("Seberapa banyak kebutuhan protein harian ku?")
     st.subheader("Halo sobat pangan! 👋")
-    st.write(""" 
+    st.write("""
     Protein adalah nutrisi penting untuk membangun dan memperbaiki jaringan tubuh, 
     termasuk otot, kulit, dan enzim. Mengonsumsi cukup protein membantu menjaga kesehatan tubuh, 
     meningkatkan metabolisme, dan mendukung proses penyembuhan. Yuk, cari tahu berapa banyak protein yang kamu butuhkan setiap harinya!
     """)
-
+    
     if st.button("Mulai Hitung ➡️"):
         st.session_state.halaman = "kalkulator"
         st.rerun()
@@ -210,11 +189,14 @@ elif st.session_state.halaman == "kalkulator":
 elif st.session_state.halaman == "hasil":
     hasil_kalkulator()
 
-# --- FOOTER ---
-st.markdown("""
-    <div class="footer">
-        <p style="text-align: center;">POLITEKNIK AKA BOGOR</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Logo_Politeknik_AKA_Bogor.png" alt="Politeknik AKA Bogor">
+# Watermark
+st.markdown(
+    """
+    <div class="watermark">
+        POLITEKNIK AKA BOGOR
+        <img src="https://www.politeknik-aka.ac.id/images/logo.png" alt="Logo Politeknik AKA Bogor">
     </div>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
