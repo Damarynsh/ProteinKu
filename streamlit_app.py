@@ -5,7 +5,7 @@ import random
 # --- CONFIG HALAMAN ---
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-# --- CSS untuk Background dan Tombol ---
+# --- CSS untuk Background, Tombol, dan Footer ---
 st.markdown(
     """
     <style>
@@ -36,20 +36,24 @@ st.markdown(
         transform: scale(1.05);
     }
 
-    /* Watermark */
-    .watermark {
+    /* Footer */
+    .footer {
         position: fixed;
-        bottom: 10px;
+        bottom: 0;
         left: 50%;
         transform: translateX(-50%);
         color: white;
-        font-size: 1.1em;
+        font-size: 0.9em;
         font-weight: bold;
         text-align: center;
         z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 10px;
+        width: 100%;
     }
+
     .watermark img {
-        width: 50px;
+        width: 20px;
         vertical-align: middle;
         margin-left: 10px;
     }
@@ -189,12 +193,11 @@ elif st.session_state.halaman == "kalkulator":
 elif st.session_state.halaman == "hasil":
     hasil_kalkulator()
 
-# Watermark
+# Footer Watermark
 st.markdown(
     """
-    <div class="watermark">
-        POLITEKNIK AKA BOGOR
-        <img src="https://www.politeknik-aka.ac.id/images/logo.png" alt="Logo Politeknik AKA Bogor">
+    <div class="footer">
+        © 2025 POLITEKNIK AKA BOGOR - All rights reserved.
     </div>
     """,
     unsafe_allow_html=True
