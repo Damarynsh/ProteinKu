@@ -136,7 +136,7 @@ def loading_screen():
     my_bar = st.progress(0, text=progress_text)
 
     for percent_complete in range(100):
-        time.sleep(0.05)
+        time.sleep(0.01)
         my_bar.progress(percent_complete + 1, text=progress_text)
 
     st.session_state.halaman = "hasil"
@@ -172,7 +172,7 @@ def hasil_kalkulator():
     # Card Styling for tips
     for i in range(1, jumlah_makan + 1):
         with st.container():
-            st.markdown(f'<div class="card">', unsafe_allow_html=True)
+            st.markdown('<div class="card">', unsafe_allow_html=True)
             st.write(f"### 🍽️ Makan ke-{i}:")
             
             kebutuhan_sesi = kebutuhan_per_makan
@@ -194,7 +194,6 @@ def hasil_kalkulator():
                     rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
 
             st.write(", ".join(rekomendasi))
-
             st.markdown('</div>', unsafe_allow_html=True)
 
     st.write("---")
