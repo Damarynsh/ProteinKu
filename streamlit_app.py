@@ -52,6 +52,21 @@ st.markdown(
         width: 100%;
     }
 
+    /* Card Styling */
+    .card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
     .watermark img {
         width: 20px;
         vertical-align: middle;
@@ -121,7 +136,7 @@ def loading_screen():
     my_bar = st.progress(0, text=progress_text)
 
     for percent_complete in range(100):
-        time.sleep(0.01)
+        time.sleep(0.05)
         my_bar.progress(percent_complete + 1, text=progress_text)
 
     st.session_state.halaman = "hasil"
@@ -154,28 +169,33 @@ def hasil_kalkulator():
 
     st.subheader("Tips Konsumsi Harian:")
 
+    # Card Styling for tips
     for i in range(1, jumlah_makan + 1):
-        st.write(f"### 🍽️ Makan ke-{i}:")
-        kebutuhan_sesi = kebutuhan_per_makan
+        with st.container():
+            st.markdown(f'<div class="card">', unsafe_allow_html=True)
+            st.write(f"### 🍽️ Makan ke-{i}:")
+            
+            kebutuhan_sesi = kebutuhan_per_makan
+            makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
+            kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
 
-        makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
-        kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
+            rekomendasi = []
+            for makanan_item in makanan_dipakai:
+                data = makanan_tersedia[makanan_item]
+                satuan = data["satuan"]
 
-        rekomendasi = []
-        for makanan_item in makanan_dipakai:
-            data = makanan_tersedia[makanan_item]
-            satuan = data["satuan"]
+                if makanan_item == "Telur":
+                    protein_per_butir = 6.5
+                    butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
+                    rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
+                else:
+                    protein_per_100g = data["protein_per_100g"]
+                    gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
+                    rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
 
-            if makanan_item == "Telur":
-                protein_per_butir = 6.5
-                butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
-                rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
-            else:
-                protein_per_100g = data["protein_per_100g"]
-                gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
-                rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
+            st.write(", ".join(rekomendasi))
 
-        st.write(", ".join(rekomendasi))
+            st.markdown('</div>', unsafe_allow_html=True)
 
     st.write("---")
     if st.button("🔙 Kembali ke Kalkulator"):
@@ -202,4 +222,3 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
