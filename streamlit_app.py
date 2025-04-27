@@ -5,24 +5,36 @@ import random
 # --- CONFIG HALAMAN ---
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-# --- CSS untuk Background, Tombol, dan Footer ---
-st.markdown(
-    """
-    <style>
-    /* Background */
-    .stApp {
-        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-                    url('https://img.freepik.com/free-photo/healthy-fresh-pet-food-ingredients-dark-surface_1150-42089.jpg?t=st=1745509027~exp=1745512627~hmac=6dac757c01ffc1963af4755b696cdd5e1cd387be5d48145c3fdd54092468eff3&w=996');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        color: white;
-    }
+# --- DARK MODE STATE ---
+if "dark_mode" not in st.session_state:
+    st.session_state.dark_mode = False
 
-    /* Tombol */
-    div.stButton > button {
+# --- DARK MODE TOGGLE ---
+mode = st.sidebar.toggle("🌙 Dark Mode", value=st.session_state.dark_mode)
+st.session_state.dark_mode = mode
+
+# --- CSS untuk Background dan Tombol ---
+if st.session_state.dark_mode:
+    # Dark Mode
+    background_color = "#1E1E1E"
+    text_color = "white"
+    tombol_color = "#F06292"  # pink
+else:
+    # Light Mode
+    background_color = "white"
+    text_color = "black"
+    tombol_color = "#E53935"  # merah
+
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-color: {background_color};
+        color: {text_color};
+    }}
+    div.stButton > button {{
         color: white;
-        background-image: linear-gradient(135deg, #FF6B6B, #FFD93D);
+        background-color: {tombol_color};
         border: none;
         border-radius: 12px;
         padding: 0.75em 2em;
@@ -30,19 +42,23 @@ st.markdown(
         font-weight: bold;
         cursor: pointer;
         transition: all 0.3s ease;
-    }
-    div.stButton > button:hover {
-        background-image: linear-gradient(135deg, #FFD93D, #FF6B6B);
+    }}
+    div.stButton > button:hover {{
+        background-color: #c62828;
         transform: scale(1.05);
-    }
-
-    /* Footer */
-    .footer {
+    }}
+    .footer {{
         text-align: center;
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.6);
-        padding: 20px 0;
-    }
+        font-size: 0.8em;
+        color: grey;
+        margin-top: 50px;
+        margin-bottom: 10px;
+    }}
+    .footer img {{
+        width: 80px;
+        vertical-align: middle;
+        margin-left: 10px;
+    }}
     </style>
     """,
     unsafe_allow_html=True
@@ -168,6 +184,18 @@ def hasil_kalkulator():
         st.session_state.halaman = "kalkulator"
         st.rerun()
 
+# --- FOOTER ---
+def footer():
+    st.markdown(
+        """
+        <div class='footer'>
+            POLITEKNIK AKA BOGOR
+            <img src='https://upload.wikimedia.org/wikipedia/commons/6/6c/Logo_AKA_Bogor.png'>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 # --- LOGIC NAVIGASI HALAMAN ---
 if "halaman" not in st.session_state:
     st.session_state.halaman = "awal"
@@ -179,5 +207,4 @@ elif st.session_state.halaman == "kalkulator":
 elif st.session_state.halaman == "hasil":
     hasil_kalkulator()
 
-# --- FOOTER SELALU MUNCUL ---
-st.markdown('<div class="footer">© 2025 POLITEKNIK AKA BOGOR - All rights reserved.</div>', unsafe_allow_html=True)
+footer()
