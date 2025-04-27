@@ -88,16 +88,16 @@ st.markdown(
 
 # --- DATA MAKANAN ---
 makanan_tersedia = {
-    "Ayam": {"protein_per_100g": 27, "satuan": "gram"},
-    "Daging sapi": {"protein_per_100g": 26, "satuan": "gram"},
-    "Ikan salmon": {"protein_per_100g": 25, "satuan": "gram"},
-    "Ikan tuna": {"protein_per_100g": 23, "satuan": "gram"},
-    "Tempe": {"protein_per_100g": 20, "satuan": "gram"},
-    "Tahu": {"protein_per_100g": 8, "satuan": "gram"},
-    "Telur": {"protein_per_butir": 6.5, "satuan": "butir"},
-    "Brokoli": {"protein_per_100g": 2.8, "satuan": "gram"},
-    "Kacang tanah": {"protein_per_100g": 25, "satuan": "gram"},
-    "Oat": {"protein_per_100g": 16.9, "satuan": "gram"},
+    "Ayam": {"protein_per_100g": 27, "satuan": "gram", "icon": "🍗"},
+    "Daging sapi": {"protein_per_100g": 26, "satuan": "gram", "icon": "🥩"},
+    "Ikan salmon": {"protein_per_100g": 25, "satuan": "gram", "icon": "🐟"},
+    "Ikan tuna": {"protein_per_100g": 23, "satuan": "gram", "icon": "🐟"},
+    "Tempe": {"protein_per_100g": 20, "satuan": "gram", "icon": "🍽️"},
+    "Tahu": {"protein_per_100g": 8, "satuan": "gram", "icon": "🍽️"},
+    "Telur": {"protein_per_butir": 6.5, "satuan": "butir", "icon": "🥚"},
+    "Brokoli": {"protein_per_100g": 2.8, "satuan": "gram", "icon": "🥦"},
+    "Kacang tanah": {"protein_per_100g": 25, "satuan": "gram", "icon": "🥜"},
+    "Oat": {"protein_per_100g": 16.9, "satuan": "gram", "icon": "🌾"},
 }
 
 # --- FUNGSI HALAMAN ---
@@ -110,7 +110,6 @@ def halaman_awal():
     meningkatkan metabolisme, dan mendukung proses penyembuhan. Yuk, cari tahu berapa banyak protein yang kamu butuhkan setiap harinya!
     """)
     
-    # Menampilkan tombol untuk melanjutkan ke kalkulator
     if st.button("Mulai Hitung ➡️"):
         st.session_state.halaman = "kalkulator"
         st.rerun()
@@ -131,7 +130,6 @@ def kalkulator():
         default=["Ayam", "Tempe", "Telur"]
     )
 
-    # Tombol hitung protein
     if st.button("Hitung Kebutuhan Protein 🍽️"):
         st.session_state.gender = gender
         st.session_state.age = age
@@ -180,7 +178,6 @@ def hasil_kalkulator():
 
     st.subheader("Tips Konsumsi Harian:")
 
-    # Card Styling for tips
     for i in range(1, jumlah_makan + 1):
         # Start meal box
         with st.container():
@@ -195,15 +192,16 @@ def hasil_kalkulator():
             for makanan_item in makanan_dipakai:
                 data = makanan_tersedia[makanan_item]
                 satuan = data["satuan"]
+                icon = data["icon"]
 
                 if makanan_item == "Telur":
                     protein_per_butir = 6.5
                     butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
-                    rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
+                    rekomendasi.append(f"{icon} {butir_diperlukan:.1f} butir {makanan_item}")
                 else:
                     protein_per_100g = data["protein_per_100g"]
                     gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
-                    rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
+                    rekomendasi.append(f"{icon} {gram_diperlukan:.0f} gram {makanan_item}")
 
             st.write(", ".join(rekomendasi))
 
