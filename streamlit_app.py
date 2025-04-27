@@ -5,7 +5,7 @@ import random
 # --- CONFIG HALAMAN ---
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-# --- CSS untuk Background dan Tombol ---
+# --- CSS untuk Background, Tombol, dan Footer ---
 st.markdown(
     """
     <style>
@@ -18,11 +18,10 @@ st.markdown(
         background-repeat: no-repeat;
         color: white;
     }
-
     /* Tombol */
     div.stButton > button {
         color: white;
-        background-image: linear-gradient(135deg, #FF6B6B, #FFD93D);
+        background-color: maroon;
         border: none;
         border-radius: 12px;
         padding: 0.75em 2em;
@@ -32,57 +31,40 @@ st.markdown(
         transition: all 0.3s ease;
     }
     div.stButton > button:hover {
-        background-image: linear-gradient(135deg, #FFD93D, #FF6B6B);
+        background-color: #B22222;
         transform: scale(1.05);
     }
-
-    /* Watermark */
-    .watermark {
-        position: relative;  /* Ganti menjadi relative agar ikut ter-scroll */
-        bottom: 0;
-        right: 10px;
-        z-index: 9999;
+    /* Footer */
+    .footer {
+        text-align: center;
+        font-size: 12px;
         color: white;
-        text-align: right;
-        font-family: "Arial", sans-serif;
-        display: flex;  /* Menggunakan flexbox */
-        justify-content: flex-end;
-        align-items: center;  /* Agar teks dan gambar sejajar secara vertikal */
-    }
-    .watermark h4 {
-        margin: 0;
-        font-size: 16px;  /* Ukuran font lebih kecil */
-        font-weight: bold;
-        margin-right: 10px;  /* Memberikan jarak antara teks dan gambar */
-    }
-    .watermark img {
-        width: 50px;  /* Ukuran logo lebih kecil */
-        height: 50px; /* Ukuran logo lebih kecil */
+        margin-top: 50px;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# --- DATA MAKANAN ---
+# --- DATA MAKANAN + ICON ---
 makanan_tersedia = {
-    "Ayam": {"protein_per_100g": 27, "satuan": "gram"},
-    "Daging sapi": {"protein_per_100g": 26, "satuan": "gram"},
-    "Ikan salmon": {"protein_per_100g": 25, "satuan": "gram"},
-    "Ikan tuna": {"protein_per_100g": 23, "satuan": "gram"},
-    "Tempe": {"protein_per_100g": 20, "satuan": "gram"},
-    "Tahu": {"protein_per_100g": 8, "satuan": "gram"},
-    "Telur": {"protein_per_butir": 6.5, "satuan": "butir"},
-    "Brokoli": {"protein_per_100g": 2.8, "satuan": "gram"},
-    "Kacang tanah": {"protein_per_100g": 25, "satuan": "gram"},
-    "Oat": {"protein_per_100g": 16.9, "satuan": "gram"},
+    "Ayam": {"protein_per_100g": 27, "satuan": "gram", "icon": "🍗"},
+    "Daging sapi": {"protein_per_100g": 26, "satuan": "gram", "icon": "🥩"},
+    "Ikan salmon": {"protein_per_100g": 25, "satuan": "gram", "icon": "🐟"},
+    "Ikan tuna": {"protein_per_100g": 23, "satuan": "gram", "icon": "🐟"},
+    "Tempe": {"protein_per_100g": 20, "satuan": "gram", "icon": "🧆"},
+    "Tahu": {"protein_per_100g": 8, "satuan": "gram", "icon": "🧈"},
+    "Telur": {"protein_per_butir": 6.5, "satuan": "butir", "icon": "🥚"},
+    "Brokoli": {"protein_per_100g": 2.8, "satuan": "gram", "icon": "🥦"},
+    "Kacang tanah": {"protein_per_100g": 25, "satuan": "gram", "icon": "🥜"},
+    "Oat": {"protein_per_100g": 16.9, "satuan": "gram", "icon": "🌾"},
 }
 
 # --- FUNGSI HALAMAN ---
 def halaman_awal():
     st.title("Seberapa banyak kebutuhan protein harian ku?")
     st.subheader("Halo sobat pangan! 👋")
-    st.write(""" 
+    st.write("""
     Protein adalah nutrisi penting untuk membangun dan memperbaiki jaringan tubuh, 
     termasuk otot, kulit, dan enzim. Mengonsumsi cukup protein membantu menjaga kesehatan tubuh, 
     meningkatkan metabolisme, dan mendukung proses penyembuhan. Yuk, cari tahu berapa banyak protein yang kamu butuhkan setiap harinya!
@@ -123,7 +105,7 @@ def loading_screen():
     my_bar = st.progress(0, text=progress_text)
 
     for percent_complete in range(100):
-        time.sleep(0.05)
+        time.sleep(0.01)
         my_bar.progress(percent_complete + 1, text=progress_text)
 
     st.session_state.halaman = "hasil"
@@ -167,15 +149,16 @@ def hasil_kalkulator():
         for makanan_item in makanan_dipakai:
             data = makanan_tersedia[makanan_item]
             satuan = data["satuan"]
+            icon = data["icon"]
 
             if makanan_item == "Telur":
                 protein_per_butir = 6.5
                 butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
-                rekomendasi.append(f"{butir_diperlukan:.1f} butir {makanan_item}")
+                rekomendasi.append(f"{icon} {butir_diperlukan:.1f} butir {makanan_item}")
             else:
                 protein_per_100g = data["protein_per_100g"]
                 gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
-                rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
+                rekomendasi.append(f"{icon} {gram_diperlukan:.0f} gram {makanan_item}")
 
         st.write(", ".join(rekomendasi))
 
@@ -184,7 +167,10 @@ def hasil_kalkulator():
         st.session_state.halaman = "kalkulator"
         st.rerun()
 
-# --- LOGIC NAVIGASI HALAMAN --- 
+    # FOOTER
+    st.markdown('<div class="footer">© 2025 POLITEKNIK AKA BOGOR - All rights reserved.</div>', unsafe_allow_html=True)
+
+# --- LOGIC NAVIGASI HALAMAN ---
 if "halaman" not in st.session_state:
     st.session_state.halaman = "awal"
 
@@ -194,13 +180,3 @@ elif st.session_state.halaman == "kalkulator":
     kalkulator()
 elif st.session_state.halaman == "hasil":
     hasil_kalkulator()
-
-# --- WATERMARK --- 
-st.markdown(
-    """
-    <div class="watermark">
-        <h4>POLITEKNIK AKA BOGOR</h4>
-        <img src="https://aka.ac.id/wp-content/uploads/2023/03/aka-bogor-2021.png"/>
-    </div>
-    """, unsafe_allow_html=True
-)
