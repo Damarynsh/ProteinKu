@@ -182,10 +182,11 @@ def hasil_kalkulator():
 
     # Card Styling for tips
     for i in range(1, jumlah_makan + 1):
+        # Start meal box
         with st.container():
             st.markdown('<div class="meal-box">', unsafe_allow_html=True)
             st.write(f"### 🍽️ Makan ke-{i}:")
-            
+
             kebutuhan_sesi = kebutuhan_per_makan
             makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
             kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
@@ -205,6 +206,8 @@ def hasil_kalkulator():
                     rekomendasi.append(f"{gram_diperlukan:.0f} gram {makanan_item}")
 
             st.write(", ".join(rekomendasi))
+
+            # End meal box
             st.markdown('</div>', unsafe_allow_html=True)
 
     st.write("---")
