@@ -9,6 +9,11 @@ st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", lay
 st.markdown(
     """
     <style>
+    /* Global warna teks agar selalu putih */
+    body, h1, h2, h3, h4, h5, h6, p, span, label, div, li, ul, ol, select, input, textarea, button {
+        color: white !important;
+    }
+    
     /* Background */
     .stApp {
         background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
