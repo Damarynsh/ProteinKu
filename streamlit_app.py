@@ -230,17 +230,27 @@ def halaman_tentang():
     </div>
     """, unsafe_allow_html=True)
 
-# --- LOGIKA NAVIGASI SIDEBAR ---
-halaman = st.sidebar.radio("Navigasi", ["Beranda", "Kalkulator", "Tentang"])
+# --- INISIALISASI HALAMAN PERTAMA KALI ---
+if "halaman" not in st.session_state:
+    st.session_state.halaman = "Beranda"
 
-if halaman == "Beranda":
+# --- SIDEBAR NAVIGASI ---
+pilihan = st.sidebar.radio("Navigasi", ["Beranda", "Kalkulator", "Tentang"])
+
+# Kalau user pilih di sidebar, override halaman saat ini
+if pilihan != st.session_state.halaman and pilihan != "Hasil":
+    st.session_state.halaman = pilihan
+
+# --- TAMPILKAN HALAMAN SESUAI STATE ---
+if st.session_state.halaman == "Beranda":
     halaman_awal()
-elif halaman == "Kalkulator":
+elif st.session_state.halaman == "Kalkulator":
     kalkulator()
-elif halaman == "Hasil":
+elif st.session_state.halaman == "Hasil":
     hasil_kalkulator()
-elif halaman == "Tentang":
+elif st.session_state.halaman == "Tentang":
     halaman_tentang()
+
 
 # --- FOOTER ---
 st.markdown(
