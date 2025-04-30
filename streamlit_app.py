@@ -238,11 +238,15 @@ if "halaman" not in st.session_state:
 def set_halaman_baru():
     st.session_state.halaman = st.session_state.pilihan_sidebar
 
+# Pastikan index aman
+opsi_menu = ["Beranda", "Kalkulator", "Tentang"]
+index_awal = opsi_menu.index(st.session_state.halaman) if st.session_state.halaman in opsi_menu else 0
+
 st.sidebar.radio(
     "Navigasi", 
-    ["Beranda", "Kalkulator", "Tentang"],
+    opsi_menu,
     key="pilihan_sidebar",
-    index=["Beranda", "Kalkulator", "Tentang"].index(st.session_state.halaman),
+    index=index_awal,
     on_change=set_halaman_baru
 )
 
@@ -255,7 +259,6 @@ elif st.session_state.halaman == "Hasil":
     hasil_kalkulator()
 elif st.session_state.halaman == "Tentang":
     halaman_tentang()
-
 
 # --- FOOTER ---
 st.markdown(
