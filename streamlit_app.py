@@ -230,18 +230,23 @@ def halaman_tentang():
     </div>
     """, unsafe_allow_html=True)
 
-# --- INISIALISASI HALAMAN PERTAMA KALI ---
+# --- INISIALISASI HALAMAN SAAT APLIKASI DIMULAI ---
 if "halaman" not in st.session_state:
     st.session_state.halaman = "Beranda"
 
 # --- SIDEBAR NAVIGASI ---
-pilihan = st.sidebar.radio("Navigasi", ["Beranda", "Kalkulator", "Tentang"])
+def set_halaman_baru():
+    st.session_state.halaman = st.session_state.pilihan_sidebar
 
-# Kalau user pilih di sidebar, override halaman saat ini
-if pilihan != st.session_state.halaman and pilihan != "Hasil":
-    st.session_state.halaman = pilihan
+st.sidebar.radio(
+    "Navigasi", 
+    ["Beranda", "Kalkulator", "Tentang"],
+    key="pilihan_sidebar",
+    index=["Beranda", "Kalkulator", "Tentang"].index(st.session_state.halaman),
+    on_change=set_halaman_baru
+)
 
-# --- TAMPILKAN HALAMAN SESUAI STATE ---
+# --- RENDER HALAMAN SESUAI SESSION STATE ---
 if st.session_state.halaman == "Beranda":
     halaman_awal()
 elif st.session_state.halaman == "Kalkulator":
