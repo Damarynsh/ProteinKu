@@ -110,7 +110,7 @@ def halaman_awal():
     st.markdown("<h4 style='text-align: center;'>Yuk cari tahu berapa banyak kebutuhan protein harianmu! 👇</h4>", unsafe_allow_html=True)
 
     if st.button("🔥Mulai Hitung Sekarang"):
-        st.session_state.halaman = "kalkulator"
+        st.session_state.halaman = "Kalkulator"
         st.rerun()
 
 
