@@ -3,7 +3,7 @@ import time
 import random
 
 # --- CONFIG HALAMAN ---
-st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="wide")
+st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
 # --- CSS untuk Background, Tombol, dan Footer ---
 st.markdown(
@@ -14,12 +14,11 @@ st.markdown(
     }
 
     .stApp {
-        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+        background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
                     url('https://img.freepik.com/free-photo/healthy-fresh-pet-food-ingredients-dark-surface_1150-42089.jpg?t=st=1745509027~exp=1745512627~hmac=6dac757c01ffc1963af4755b696cdd5e1cd387be5d48145c3fdd54092468eff3&w=996');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        color: white;
     }
 
     div.stButton > button {
@@ -64,12 +63,6 @@ st.markdown(
     h3, h4 {
         text-align: center;
     }
-
-    .watermark img {
-        width: 20px;
-        vertical-align: middle;
-        margin-left: 10px;
-    }
     </style>
     """,
     unsafe_allow_html=True
@@ -89,16 +82,26 @@ makanan_tersedia = {
     "Oat": {"protein_per_100g": 16.9, "satuan": "gram", "icon": "🌾"},
 }
 
-# --- FUNGSI HALAMAN ---
+# --- HALAMAN BERANDA ---
 def halaman_awal():
-    st.title("🥩Seberapa banyak kebutuhan protein harian ku?")
-    st.subheader("Halo sobat pangan!!!")
-    st.write("""
-    Protein adalah nutrisi penting untuk membangun dan memperbaiki jaringan tubuh, 
-    termasuk otot, kulit, dan enzim. Mengonsumsi cukup protein membantu menjaga kesehatan tubuh, 
-    meningkatkan metabolisme, dan mendukung proses penyembuhan. Yuk, cari tahu berapa banyak protein yang kamu butuhkan setiap harinya!
-    """)
+    st.markdown("<h1 style='text-align: center;'>💪 Kalkulator Protein Harian</h1>", unsafe_allow_html=True)
+    
+    st.image("https://cdn-icons-png.flaticon.com/512/1046/1046784.png", width=150)
 
+    st.markdown("""
+    <div style='text-align: center; font-size: 18px; margin-top: 20px;'>
+        Mau turunin berat badan? Atau mau nambah massa otot? <br><br>
+        Yuk cari tahu kebutuhan protein harianmu dan <b>mulai hidup sehat sekarang juga!</b>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    if st.button("🔥 Mulai Sekarang"):
+        st.session_state.halaman = "Kalkulator"
+        st.rerun()
+
+# --- HALAMAN KALKULATOR ---
 def kalkulator():
     st.title("Kalkulator Kebutuhan Protein Harian")
 
@@ -133,9 +136,10 @@ def loading_screen():
         time.sleep(0.06)
         my_bar.progress(percent_complete + 1, text=progress_text)
 
-    st.session_state.halaman = "hasil"
+    st.session_state.halaman = "Hasil"
     st.rerun()
 
+# --- HASIL KALKULATOR ---
 def hasil_kalkulator():
     st.title("🔥Hasil Kebutuhan Protein Kamu")
 
@@ -159,7 +163,6 @@ def hasil_kalkulator():
 
     st.markdown(f"<h2 style='text-align: center;'>✨ Kamu membutuhkan {kebutuhan_protein:.1f} gram protein setiap hari! ✨</h2>", unsafe_allow_html=True)
     st.write("---")
-
     st.subheader("Tips Konsumsi Harian:")
 
     for i in range(1, jumlah_makan + 1):
@@ -178,10 +181,12 @@ def hasil_kalkulator():
                 icon = data["icon"]
 
                 if makanan_item == "Telur":
-                    butir_diperlukan = kebutuhan_per_makanan / 6.5
+                    protein_per_butir = 6.5
+                    butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
                     rekomendasi.append(f"{icon} {butir_diperlukan:.1f} butir {makanan_item}")
                 else:
-                    gram_diperlukan = (kebutuhan_per_makanan / data["protein_per_100g"]) * 100
+                    protein_per_100g = data["protein_per_100g"]
+                    gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
                     rekomendasi.append(f"{icon} {gram_diperlukan:.0f} gram {makanan_item}")
 
             st.write(", ".join(rekomendasi))
@@ -189,30 +194,38 @@ def hasil_kalkulator():
 
     st.write("---")
     if st.button("🔙 Kembali ke Kalkulator"):
-        st.session_state.halaman = "kalkulator"
+        st.session_state.halaman = "Kalkulator"
         st.rerun()
 
+# --- HALAMAN TENTANG ---
 def halaman_tentang():
-    st.title("Tentang Aplikasi Ini")
-    st.write("""
-    Aplikasi ini dibuat sebagai alat bantu untuk menghitung kebutuhan protein harian secara sederhana. 
-    Tujuan kami adalah memberikan informasi berguna untuk menjaga pola makan sehat dan seimbang, 
-    khususnya dalam pemenuhan asupan protein yang penting bagi tubuh.
+    st.markdown("<h1 style='text-align: center;'>📝 Tentang Aplikasi Ini</h1>", unsafe_allow_html=True)
 
-    Dengan fitur kalkulator dan rekomendasi makanan, pengguna dapat dengan mudah mengetahui berapa banyak protein yang dibutuhkan 
-    dan bagaimana membaginya ke dalam menu harian mereka. Harapannya, aplikasi ini bisa membantu siapa saja yang ingin hidup lebih sehat!
-    """)
+    st.image("https://cdn-icons-png.flaticon.com/512/3039/3039407.png", width=120)
 
-# --- SIDEBAR NAVIGASI ---
+    st.markdown("""
+    <ul style='font-size: 18px;'>
+        <li>Aplikasi ini dirancang untuk membantu masyarakat menghitung kebutuhan protein harian mereka.</li>
+        <li>Dibuat sebagai bagian dari tugas akhir mahasiswa D3 Penjaminan Mutu Industri Pangan di POLITEKNIK AKA BOGOR.</li>
+        <li>Dapat membantu dalam perencanaan makan sehat, terutama untuk yang sedang diet atau membentuk otot.</li>
+    </ul>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style='text-align: center; font-size: 20px; font-style: italic; margin-top: 30px;'>
+        “Makanan sehat adalah investasi terbaik untuk tubuhmu.”
+    </div>
+    """, unsafe_allow_html=True)
+
+# --- LOGIKA NAVIGASI SIDEBAR ---
 halaman = st.sidebar.radio("Navigasi", ["Beranda", "Kalkulator", "Tentang"])
 
 if halaman == "Beranda":
     halaman_awal()
 elif halaman == "Kalkulator":
-    if "halaman" in st.session_state and st.session_state.halaman == "hasil":
-        hasil_kalkulator()
-    else:
-        kalkulator()
+    kalkulator()
+elif halaman == "Hasil":
+    hasil_kalkulator()
 elif halaman == "Tentang":
     halaman_tentang()
 
