@@ -84,22 +84,35 @@ makanan_tersedia = {
 
 # --- HALAMAN BERANDA ---
 def halaman_awal():
-    st.markdown("<h1 style='text-align: center;'>💪 Kalkulator Protein Harian</h1>", unsafe_allow_html=True)
-    
-    st.image("https://cdn-icons-png.flaticon.com/512/1046/1046784.png", width=150)
+    st.markdown("<h1 style='text-align: center;'>🥩</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Selamat Datang di Kalkulator Protein Harian</h2>", unsafe_allow_html=True)
+    st.write("---")
 
     st.markdown("""
-    <div style='text-align: center; font-size: 18px; margin-top: 20px;'>
-        Mau turunin berat badan? Atau mau nambah massa otot? <br><br>
-        Yuk cari tahu kebutuhan protein harianmu dan <b>mulai hidup sehat sekarang juga!</b>
-    </div>
+    ### Apa itu Protein?
+    Protein adalah molekul besar yang terdiri dari asam amino dan sangat penting bagi tubuh manusia. 
+    Protein berperan sebagai bahan pembangun utama jaringan tubuh seperti otot, kulit, dan organ dalam.
+
+    ### Kegunaan Protein
+    - Membantu membentuk dan memperbaiki jaringan tubuh
+    - Membuat enzim, hormon, dan senyawa kimia penting lainnya
+    - Menyediakan energi saat tubuh kekurangan karbohidrat dan lemak
+
+    ### Manfaat Protein bagi Tubuh
+    - **Meningkatkan massa otot**: Membantu pertumbuhan dan pemeliharaan otot, terutama saat berolahraga
+    - **Menjaga berat badan ideal**: Membuat kenyang lebih lama dan membantu pembakaran lemak
+    - **Mendukung kesehatan tulang**: Protein berkaitan dengan kekuatan tulang dan mencegah osteoporosis
+    - **Mempercepat proses pemulihan**: Membantu penyembuhan luka dan cedera
+
+    ---
     """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center;'>Yuk cari tahu berapa banyak kebutuhan protein harianmu! 👇</h4>", unsafe_allow_html=True)
 
-    if st.button("🔥 Mulai Sekarang"):
-        st.session_state.halaman = "Kalkulator"
+    if st.button("🔥Mulai Hitung Sekarang"):
+        st.session_state.halaman = "kalkulator"
         st.rerun()
+
 
 # --- HALAMAN KALKULATOR ---
 def kalkulator():
