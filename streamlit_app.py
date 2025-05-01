@@ -168,8 +168,27 @@ def loading_screen():
 
 # --- HASIL KALKULATOR ---
 def hasil_kalkulator():
-    st.title("🔥Hasil Kebutuhan Protein Kamu")
+    st.markdown("""
+        <h2 style="
+            text-align: center;
+            color: #FFDD57;
+            font-size: 2.2em;
+            text-shadow: 0 0 15px #FFD700;
+            animation: fadeIn 2s ease-in-out;
+        ">
+        ✨ Kamu membutuhkan {0:.1f} gram protein setiap hari! ✨
+        </h2>
+        <hr style="border: 1px solid #ffffff55; margin-top: 20px; margin-bottom: 30px;">
+    """.format(
+        st.session_state.weight * (
+            1.0 if st.session_state.age >= 60 else
+            1.2 if st.session_state.tujuan == "Menurunkan berat badan" else
+            0.8 if st.session_state.tujuan == "Menjaga berat badan" else
+            1.6
+        )
+    ), unsafe_allow_html=True)
 
+    # Hitung ulang nilai
     weight = st.session_state.weight
     tujuan = st.session_state.tujuan
     jumlah_makan = st.session_state.jumlah_makan
@@ -188,41 +207,47 @@ def hasil_kalkulator():
 
     kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
-    st.markdown(f"<h2 style='text-align: center;'>✨ Kamu membutuhkan {kebutuhan_protein:.1f} gram protein setiap hari! ✨</h2>", unsafe_allow_html=True)
-    st.write("---")
     st.subheader("Tips Konsumsi Harian:")
 
     for i in range(1, jumlah_makan + 1):
-        with st.container():
-            st.markdown('<div class="meal-box">', unsafe_allow_html=True)
-            st.write(f"### 🍽️ Makan ke-{i}:")
+        st.markdown('<div class="meal-box">', unsafe_allow_html=True)
+        st.markdown(f"<h4 style='text-align:center;'>🍽️ Makan ke-{i}</h4>", unsafe_allow_html=True)
 
-            kebutuhan_sesi = kebutuhan_per_makan
-            makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
-            kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
+        kebutuhan_sesi = kebutuhan_per_makan
+        makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
+        kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
 
-            rekomendasi = []
-            for makanan_item in makanan_dipakai:
-                data = makanan_tersedia[makanan_item]
-                satuan = data["satuan"]
-                icon = data["icon"]
+        rekomendasi = []
+        for makanan_item in makanan_dipakai:
+            data = makanan_tersedia[makanan_item]
+            satuan = data["satuan"]
+            icon = data["icon"]
 
-                if makanan_item == "Telur":
-                    protein_per_butir = 6.5
-                    butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
-                    rekomendasi.append(f"{icon} {butir_diperlukan:.1f} butir {makanan_item}")
-                else:
-                    protein_per_100g = data["protein_per_100g"]
-                    gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
-                    rekomendasi.append(f"{icon} {gram_diperlukan:.0f} gram {makanan_item}")
+            if makanan_item == "Telur":
+                protein_per_butir = 6.5
+                butir_diperlukan = kebutuhan_per_makanan / protein_per_butir
+                rekomendasi.append(f"{icon} {butir_diperlukan:.1f} butir {makanan_item}")
+            else:
+                protein_per_100g = data["protein_per_100g"]
+                gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
+                rekomendasi.append(f"{icon} {gram_diperlukan:.0f} gram {makanan_item}")
 
-            st.write(", ".join(rekomendasi))
-            st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("<ul style='font-size: 18px;'>", unsafe_allow_html=True)
+        for r in rekomendasi:
+            st.markdown(f"<li>{r}</li>", unsafe_allow_html=True)
+        st.markdown("</ul></div>", unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style='text-align: center; font-size: 18px; margin-top: 30px; font-style: italic; color: #ffffffcc;'>
+    💪 “Protein bukan cuma untuk otot, tapi fondasi utama tubuhmu. Jaga asupanmu, jaga tubuhmu!” 💪
+    </div>
+    """, unsafe_allow_html=True)
 
     st.write("---")
     if st.button("🔙 Kembali ke Kalkulator"):
         st.session_state.halaman = "Kalkulator"
         st.rerun()
+
 
 # --- HALAMAN TENTANG ---
 def halaman_tentang():
