@@ -221,7 +221,7 @@ def hasil_kalkulator():
         else:
             kebutuhan_protein = weight * 1.6
 
-    kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
+       kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
     # --- Tambahan emoji besar ekspresif ---
     st.markdown("""
@@ -249,6 +249,7 @@ def hasil_kalkulator():
         ✨ {kebutuhan_protein:.1f} gram protein per hari ✨
     </div>
     """, unsafe_allow_html=True)
+
 
     st.subheader("🍱 Rekomendasi Menu Setiap Waktu Makan:")
     ...
