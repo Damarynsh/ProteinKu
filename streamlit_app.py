@@ -204,13 +204,14 @@ def hasil_kalkulator():
 
     st.title("🎯 Hasil Kebutuhan Protein Kamu")
 
+    # Ambil data dari session_state
     weight = st.session_state.weight
     tujuan = st.session_state.tujuan
     jumlah_makan = st.session_state.jumlah_makan
     pilihan_makanan = st.session_state.pilihan_makanan
     age = st.session_state.age
 
-    # --- Perhitungan kebutuhan protein ---
+    # Hitung kebutuhan protein
     if age >= 60:
         kebutuhan_protein = weight * 1.0
     else:
@@ -223,35 +224,15 @@ def hasil_kalkulator():
 
     kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
-    # --- Tambahan emoji besar ekspresif ---
-    st.markdown("""
-    <div style='
-        text-align: center;
-        font-size: 72px;
-        margin-bottom: -10px;
-    '>
-        🏋️‍♂️
-    </div>
-    """, unsafe_allow_html=True)
-
+    # Tampilkan hasil utama yang besar
     st.markdown(f"""
-    <div style='
-        text-align: center;
-        font-size: 48px;
-        font-weight: bold;
-        color: #FFDD57;
-        background-color: rgba(255, 255, 255, 0.1);
-        padding: 20px;
-        border-radius: 15px;
-        margin: 30px 0;
-        box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    '>
-        ✨ {kebutuhan_protein:.1f} gram protein per hari ✨
+    <div class="protein-box">
+        <div class="subtitle">Kebutuhan protein harianmu adalah:</div>
+        <div class="protein-value">{kebutuhan_protein:.1f} gram</div>
     </div>
     """, unsafe_allow_html=True)
 
     st.subheader("🍱 Rekomendasi Menu Setiap Waktu Makan:")
-    ...
 
     # Buat menu makan berdasarkan pilihan pengguna
     for i in range(1, jumlah_makan + 1):
