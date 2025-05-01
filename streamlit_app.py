@@ -63,6 +63,20 @@ st.markdown(
     h3, h4 {
         text-align: center;
     }
+    /* Ubah warna background sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #1c1c1c;
+    color: white;
+}
+
+/* Ubah warna teks sidebar */
+section[data-testid="stSidebar"] .css-1v0mbdj, 
+section[data-testid="stSidebar"] .css-10trblm, 
+section[data-testid="stSidebar"] .css-1y4p8pa, 
+section[data-testid="stSidebar"] label {
+    color: white !important;
+}
+
     </style>
     """,
     unsafe_allow_html=True
