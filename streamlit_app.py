@@ -223,13 +223,22 @@ def hasil_kalkulator():
 
     kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
-    st.markdown(f"""
-    <div class="protein-box">
-        <div class="subtitle">Kebutuhan Protein Harian Kamu adalah:</div>
-        <div class="protein-value">{kebutuhan_protein:.1f} gram</div>
-        <div style="font-size:16px;">Setara dengan sekitar {kebutuhan_per_makan:.1f} gram per kali makan ({jumlah_makan}x makan).</div>
-    </div>
-    """, unsafe_allow_html=True)
+   st.markdown(f"""
+<div style='
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: #FFDD57;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 30px 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+'>
+    ✨ {kebutuhan_protein:.1f} gram protein per hari ✨
+</div>
+""", unsafe_allow_html=True)
+
 
     st.subheader("🍱 Rekomendasi Menu Setiap Waktu Makan:")
 
