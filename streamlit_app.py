@@ -221,7 +221,7 @@ def hasil_kalkulator():
         else:
             kebutuhan_protein = weight * 1.6
 
-       kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
+    kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
     # --- Tambahan emoji besar ekspresif ---
     st.markdown("""
