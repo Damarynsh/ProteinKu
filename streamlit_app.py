@@ -169,32 +169,48 @@ def loading_screen():
 # --- HASIL KALKULATOR ---
 def hasil_kalkulator():
     st.markdown("""
-        <h2 style="
-            text-align: center;
-            color: #FFDD57;
-            font-size: 2.2em;
-            text-shadow: 0 0 15px #FFD700;
-            animation: fadeIn 2s ease-in-out;
-        ">
-        ✨ Kamu membutuhkan {0:.1f} gram protein setiap hari! ✨
-        </h2>
-        <hr style="border: 1px solid #ffffff55; margin-top: 20px; margin-bottom: 30px;">
-    """.format(
-        st.session_state.weight * (
-            1.0 if st.session_state.age >= 60 else
-            1.2 if st.session_state.tujuan == "Menurunkan berat badan" else
-            0.8 if st.session_state.tujuan == "Menjaga berat badan" else
-            1.6
-        )
-    ), unsafe_allow_html=True)
+    <style>
+    .protein-box {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        margin-bottom: 30px;
+        color: white;
+    }
 
-    # Hitung ulang nilai
+    .protein-value {
+        font-size: 48px;
+        font-weight: bold;
+        color: #FFD700;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+
+    .meal-card {
+        background-color: rgba(255,255,255,0.12);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.title("🎯 Hasil Kebutuhan Protein Kamu")
+
     weight = st.session_state.weight
     tujuan = st.session_state.tujuan
     jumlah_makan = st.session_state.jumlah_makan
     pilihan_makanan = st.session_state.pilihan_makanan
     age = st.session_state.age
 
+    # --- Perhitungan kebutuhan protein ---
     if age >= 60:
         kebutuhan_protein = weight * 1.0
     else:
@@ -207,12 +223,17 @@ def hasil_kalkulator():
 
     kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
-    st.subheader("Tips Konsumsi Harian:")
+    st.markdown(f"""
+    <div class="protein-box">
+        <div class="subtitle">Kebutuhan Protein Harian Kamu adalah:</div>
+        <div class="protein-value">{kebutuhan_protein:.1f} gram</div>
+        <div style="font-size:16px;">Setara dengan sekitar {kebutuhan_per_makan:.1f} gram per kali makan ({jumlah_makan}x makan).</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.subheader("🍱 Rekomendasi Menu Setiap Waktu Makan:")
 
     for i in range(1, jumlah_makan + 1):
-        st.markdown('<div class="meal-box">', unsafe_allow_html=True)
-        st.markdown(f"<h4 style='text-align:center;'>🍽️ Makan ke-{i}</h4>", unsafe_allow_html=True)
-
         kebutuhan_sesi = kebutuhan_per_makan
         makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
         kebutuhan_per_makanan = kebutuhan_sesi / len(makanan_dipakai)
@@ -232,16 +253,12 @@ def hasil_kalkulator():
                 gram_diperlukan = (kebutuhan_per_makanan / protein_per_100g) * 100
                 rekomendasi.append(f"{icon} {gram_diperlukan:.0f} gram {makanan_item}")
 
-        st.markdown("<ul style='font-size: 18px;'>", unsafe_allow_html=True)
-        for r in rekomendasi:
-            st.markdown(f"<li>{r}</li>", unsafe_allow_html=True)
-        st.markdown("</ul></div>", unsafe_allow_html=True)
-
-    st.markdown("""
-    <div style='text-align: center; font-size: 18px; margin-top: 30px; font-style: italic; color: #ffffffcc;'>
-    💪 “Protein bukan cuma untuk otot, tapi fondasi utama tubuhmu. Jaga asupanmu, jaga tubuhmu!” 💪
-    </div>
-    """, unsafe_allow_html=True)
+        st.markdown(f"""
+        <div class="meal-card">
+            <h4 style="text-align:center;">🍽️ Makan ke-{i}</h4>
+            <p style="text-align:center; font-size:18px;">{' + '.join(rekomendasi)}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.write("---")
     if st.button("🔙 Kembali ke Kalkulator"):
