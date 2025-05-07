@@ -272,8 +272,6 @@ def hasil_kalkulator():
 def halaman_tentang():
     st.markdown("<h1 style='text-align: center;'>📝 Tentang Aplikasi Ini</h1>", unsafe_allow_html=True)
 
-    st.image("https://cdn-icons-png.flaticon.com/512/3039/3039407.png", width=120)
-
     st.markdown("""
     <ul style='font-size: 18px;'>
         <li>Aplikasi ini dirancang untuk membantu masyarakat menghitung kebutuhan protein harian mereka.</li>
