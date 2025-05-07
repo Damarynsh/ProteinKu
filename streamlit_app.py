@@ -271,7 +271,6 @@ def hasil_kalkulator():
 # --- HALAMAN TENTANG ---
 def halaman_tentang():
     st.markdown("<h1 style='text-align: center;'>📝 Tentang Aplikasi Ini</h1>", unsafe_allow_html=True)
-
     st.markdown("""
     <ul style='font-size: 18px;'>
         <li>Aplikasi ini dirancang untuk membantu menghitung kebutuhan protein harian pada tubuh manusia.</li>
@@ -279,7 +278,6 @@ def halaman_tentang():
         <li>Website yang kami rancang dapat membantu dalam perencanaan makan sehat, terutama untuk yang sedang diet atau membentuk otot.</li>
     </ul>
     """, unsafe_allow_html=True)
-
     st.markdown("""
     <h3 style='margin-top: 40px;'>📚 Sumber Referensi:</h3>
     <ul style='font-size: 17px;'>
