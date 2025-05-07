@@ -274,15 +274,15 @@ def halaman_tentang():
 
     st.markdown("""
     <ul style='font-size: 18px;'>
-        <li>Aplikasi ini dirancang untuk membantu masyarakat menghitung kebutuhan protein harian mereka.</li>
-        <li>Dibuat sebagai bagian dari tugas akhir mahasiswa D3 Penjaminan Mutu Industri Pangan di POLITEKNIK AKA BOGOR.</li>
-        <li>Dapat membantu dalam perencanaan makan sehat, terutama untuk yang sedang diet atau membentuk otot.</li>
+        <li>Aplikasi ini dirancang untuk membantu menghitung kebutuhan protein harian pada tubuh manusia.</li>
+        <li>Website ini dibuat sebagai bagian dari project dalam mata kuliah Logika Pemograman Komputer mahasiswa D3 Penjaminan Mutu Industri Pangan di POLITEKNIK AKA BOGOR.</li>
+        <li>Website yang kami rancang dapat membantu dalam perencanaan makan sehat, terutama untuk yang sedang diet atau membentuk otot.</li>
     </ul>
     """, unsafe_allow_html=True)
 
     st.markdown("""
     <div style='text-align: center; font-size: 20px; font-style: italic; margin-top: 30px;'>
-        “Makanan sehat adalah investasi terbaik untuk tubuhmu.”
+        “Jadikan makanan sehat sebagai kebiasaan, bukan sekadar pilihan.”
     </div>
     """, unsafe_allow_html=True)
 
