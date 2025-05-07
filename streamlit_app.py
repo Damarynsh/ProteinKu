@@ -281,6 +281,16 @@ def halaman_tentang():
     """, unsafe_allow_html=True)
 
     st.markdown("""
+    <h3 style='margin-top: 40px;'>📚 Sumber Referensi:</h3>
+    <ul style='font-size: 17px;'>
+        <li>World Health Organization (WHO) – Protein and amino acid requirements in human nutrition.</li>
+        <li>Peraturan Menteri Kesehatan Republik Indonesia Nomor 28 Tahun 2019 – Angka Kecukupan Gizi (AKG).</li>
+        <li>ESPEN Guidelines on Clinical Nutrition and Aging – European Society for Clinical Nutrition and Metabolism.</li>
+        <li>Literatur kebugaran dan nutrisi modern seperti NASM & Precision Nutrition (untuk penyesuaian tujuan).</li>
+    </ul>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
     <div style='text-align: center; font-size: 20px; font-style: italic; margin-top: 30px;'>
         “Jadikan makanan sehat sebagai kebiasaan, bukan sekadar pilihan.”
     </div>
