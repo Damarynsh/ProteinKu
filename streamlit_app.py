@@ -7,18 +7,14 @@ st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", lay
 
 st.markdown("""
     <style>
-        div[data-baseweb="select"] > div {
-            background-color: #333333;
+        /* Background dan teks aplikasi */
+        .stApp {
+            background-color: #1e1e1e;
             color: white;
         }
 
-        div[data-baseweb="select"] div[role="combobox"] {
-            background-color: #333333 !important;
-            color: white !important;
-        }
-
-        div[data-baseweb="select"] div[role="option"] {
-            background-color: #333333 !important;
+        /* Styling untuk semua label dan teks */
+        label, .css-1cpxqw2, .css-10trblm {
             color: white !important;
         }
 
