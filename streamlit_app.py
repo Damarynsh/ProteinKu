@@ -5,6 +5,25 @@ import random
 #BUAT CONFIG NAMA WEB BIAR KEREN
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
+st.markdown("""
+    <style>
+        div[data-baseweb="select"] > div {
+            background-color: #333333;
+            color: white;
+        }
+
+        div[data-baseweb="select"] div[role="combobox"] {
+            background-color: #333333 !important;
+            color: white !important;
+        }
+
+        div[data-baseweb="select"] div[role="option"] {
+            background-color: #333333 !important;
+            color: white !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 #CODING BUAT BACKGROUND, FONT, BUTTON
 st.markdown(
     """
