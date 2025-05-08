@@ -21,6 +21,20 @@ st.markdown("""
             background-color: #333333 !important;
             color: white !important;
         }
+
+        /* Styling untuk number_input */
+        input[type="number"] {
+            background-color: #333333;
+            color: white;
+            border: 1px solid #555555;
+            padding: 0.5em;
+            border-radius: 5px;
+        }
+
+        /* Styling label teks */
+        label {
+            color: white;
+        }
     </style>
 """, unsafe_allow_html=True)
 
