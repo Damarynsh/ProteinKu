@@ -2,10 +2,10 @@ import streamlit as st
 import time
 import random
 
-# --- CONFIG HALAMAN ---
+#BUAT CONFIG NAMA WEB BIAR KEREN
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-# --- CSS untuk Background, Tombol, dan Footer ---
+#CODING BUAT BACKGROUND, FONT, BUTTON
 st.markdown(
     """
     <style>
@@ -82,7 +82,7 @@ section[data-testid="stSidebar"] label {
     unsafe_allow_html=True
 )
 
-# --- DATA MAKANAN ---
+# INI DATA LIST MAKANAN
 makanan_tersedia = {
     "Ayam": {"protein_per_100g": 27, "satuan": "gram", "icon": "🍗"},
     "Daging sapi": {"protein_per_100g": 26, "satuan": "gram", "icon": "🥩"},
@@ -96,7 +96,7 @@ makanan_tersedia = {
     "Oat": {"protein_per_100g": 16.9, "satuan": "gram", "icon": "🌾"},
 }
 
-# --- HALAMAN BERANDA ---
+# --- HALAMAN BERANDA AWAL NO 1 ---
 def halaman_awal():
     st.markdown("<h1 style='text-align: center;'>🥩</h1>", unsafe_allow_html=True)
     st.markdown("<h2 style='text-align: center;'>Selamat Datang di Kalkulator Protein Harian</h2>", unsafe_allow_html=True)
@@ -128,7 +128,7 @@ def halaman_awal():
         st.rerun()
 
 
-# --- HALAMAN KALKULATOR ---
+# --- HALAMANN KALKULATOR KEDUA ---
 def kalkulator():
     st.title("Kalkulator Kebutuhan Protein Harian")
 
@@ -166,7 +166,7 @@ def loading_screen():
     st.session_state.halaman = "Hasil"
     st.rerun()
 
-# --- HASIL KALKULATOR ---
+# --- HASIL KALKULATOR NYA HEHE ---
 def hasil_kalkulator():
     st.markdown("""
     <style>
@@ -204,14 +204,14 @@ def hasil_kalkulator():
 
     st.title("🎯 Hasil Kebutuhan Protein Kamu")
 
-    # Ambil data dari session_state
+    # BUAT TUJUAN PILIHANNYA
     weight = st.session_state.weight
     tujuan = st.session_state.tujuan
     jumlah_makan = st.session_state.jumlah_makan
     pilihan_makanan = st.session_state.pilihan_makanan
     age = st.session_state.age
 
-    # Hitung kebutuhan protein
+    # SISTEM KALKULATOR TUJUANNYAA
     if age >= 60:
         kebutuhan_protein = weight * 1.0
     else:
@@ -224,7 +224,7 @@ def hasil_kalkulator():
 
     kebutuhan_per_makan = kebutuhan_protein / jumlah_makan
 
-    # Tampilkan hasil utama yang besar
+    # HASIL PROTEIN JADI SEGEDE GABAN
     st.markdown(f"""
     <div class="protein-box">
         <div class="subtitle">Kebutuhan protein harianmu adalah:</div>
@@ -234,7 +234,7 @@ def hasil_kalkulator():
 
     st.subheader("🍱 Rekomendasi Menu Setiap Waktu Makan:")
 
-    # Buat menu makan berdasarkan pilihan pengguna
+    # REFERENSI MADANG FULL PROTEIN
     for i in range(1, jumlah_makan + 1):
         kebutuhan_sesi = kebutuhan_per_makan
         makanan_dipakai = random.sample(pilihan_makanan, min(2, len(pilihan_makanan)))
@@ -268,7 +268,7 @@ def hasil_kalkulator():
         st.rerun()
 
 
-# --- HALAMAN TENTANG ---
+# --- HALAMAN TENTANG TERAKHIR ---
 def halaman_tentang():
     st.markdown("<h1 style='text-align: center;'>📝 Tentang Aplikasi Ini</h1>", unsafe_allow_html=True)
     st.markdown("""
@@ -297,11 +297,11 @@ def halaman_tentang():
 if "halaman" not in st.session_state:
     st.session_state.halaman = "Beranda"
 
-# --- SIDEBAR NAVIGASI ---
+# --- SIDEBAR NAVIGASI YG DI SISI KIRI ---
 def set_halaman_baru():
     st.session_state.halaman = st.session_state.pilihan_sidebar
 
-# Pastikan index aman
+# CEK INDEX HARUS AMAN
 opsi_menu = ["Beranda", "Kalkulator", "Tentang"]
 index_awal = opsi_menu.index(st.session_state.halaman) if st.session_state.halaman in opsi_menu else 0
 
@@ -313,7 +313,7 @@ st.sidebar.radio(
     on_change=set_halaman_baru
 )
 
-# --- RENDER HALAMAN SESUAI SESSION STATE ---
+# --- BUTTON HALAMAN BUAT RENDERNYA ---
 if st.session_state.halaman == "Beranda":
     halaman_awal()
 elif st.session_state.halaman == "Kalkulator":
@@ -323,7 +323,7 @@ elif st.session_state.halaman == "Hasil":
 elif st.session_state.halaman == "Tentang":
     halaman_tentang()
 
-# --- FOOTER ---
+# --- FOOTER BUAT WATERMARK ---
 st.markdown(
     """
     <div class="footer">
