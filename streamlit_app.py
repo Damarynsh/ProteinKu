@@ -7,51 +7,36 @@ st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", lay
 
 st.markdown("""
     <style>
-        /* Styling untuk selectbox */
-        div[data-baseweb="select"] > div {
-            background-color: #333333;
+        /* Styling tombol utama (st.button) */
+        button[kind="primary"] {
+            background-color: #444444;
+            color: white;
+            border: 1px solid #888888;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+        }
+
+        button[kind="primary"]:hover {
+            background-color: #555555;
             color: white;
         }
 
-        div[data-baseweb="select"] div[role="combobox"] {
-            background-color: #333333 !important;
-            color: white !important;
-        }
-
-        div[data-baseweb="select"] div[role="option"] {
-            background-color: #333333 !important;
-            color: white !important;
-        }
-
-        div[data-baseweb="menu"] {
-            background-color: #333333 !important;
-            color: white !important;
-        }
-
-        div[data-baseweb="option"]:hover {
-            background-color: #444444 !important;
-        }
-
-        /* Styling untuk number_input */
-        input[type="number"] {
-            background-color: #333333;
+        /* Ini menangani tombol biasa jika atribut `kind` tidak tersedia */
+        .stButton>button {
+            background-color: #444444;
             color: white;
-            border: 1px solid #555555;
-            padding: 0.5em;
-            border-radius: 5px;
+            border: 1px solid #888888;
+            padding: 0.5em 1em;
+            border-radius: 8px;
         }
 
-        /* Styling label teks */
-        label {
+        .stButton>button:hover {
+            background-color: #555555;
             color: white;
-        }
-
-        /* Styling untuk latar belakang umum aplikasi */
-        .stApp {
-            background-color: #1e1e1e;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 #CODING BUAT BACKGROUND, FONT, BUTTON
