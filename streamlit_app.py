@@ -7,55 +7,52 @@ st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", lay
 
 st.markdown("""
     <style>
-        /* Background dan teks aplikasi */
-        .stApp {
-            background-color: #1e1e1e;
-            color: white;
-        }
-
-        /* Styling untuk semua label dan teks */
-        label, .css-1cpxqw2, .css-10trblm {
-            color: white !important;
-        }
-
-        /* Styling untuk input angka */
-        input[type="number"] {
-            background-color: #333333;
-            color: white;
-            border: 1px solid #555555;
-            border-radius: 5px;
-        }
-
-        /* Styling untuk dropdown selectbox */
-        div[data-baseweb="select"] {
-            background-color: #333333;
-            color: white;
-        }
-
-        /* Styling untuk dropdown combobox saat terbuka */
+        /* Styling untuk selectbox */
         div[data-baseweb="select"] > div {
+            background-color: #333333;
+            color: white;
+        }
+
+        div[data-baseweb="select"] div[role="combobox"] {
             background-color: #333333 !important;
             color: white !important;
         }
 
-        /* Styling untuk list menu pilihan */
+        div[data-baseweb="select"] div[role="option"] {
+            background-color: #333333 !important;
+            color: white !important;
+        }
+
         div[data-baseweb="menu"] {
             background-color: #333333 !important;
             color: white !important;
         }
 
-        /* Styling untuk setiap item di dalam dropdown */
-        div[data-baseweb="option"] {
-            background-color: #333333 !important;
-            color: white !important;
-        }
-
-        /* Hover effect item di dropdown */
         div[data-baseweb="option"]:hover {
             background-color: #444444 !important;
         }
+
+        /* Styling untuk number_input */
+        input[type="number"] {
+            background-color: #333333;
+            color: white;
+            border: 1px solid #555555;
+            padding: 0.5em;
+            border-radius: 5px;
+        }
+
+        /* Styling label teks */
+        label {
+            color: white;
+        }
+
+        /* Styling untuk latar belakang umum aplikasi */
+        .stApp {
+            background-color: #1e1e1e;
+        }
     </style>
 """, unsafe_allow_html=True)
+
 
 #CODING BUAT BACKGROUND, FONT, BUTTON
 st.markdown(
