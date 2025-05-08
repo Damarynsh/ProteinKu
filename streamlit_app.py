@@ -5,40 +5,6 @@ import random
 #BUAT CONFIG NAMA WEB BIAR KEREN
 st.set_page_config(page_title="Kalkulator Protein Harian", page_icon="🍗", layout="centered")
 
-st.markdown("""
-    <style>
-        /* Styling tombol utama (st.button) */
-        button[kind="primary"] {
-            background-color: #444444;
-            color: white;
-            border: 1px solid #888888;
-            padding: 0.5em 1em;
-            border-radius: 8px;
-        }
-
-        button[kind="primary"]:hover {
-            background-color: #555555;
-            color: white;
-        }
-
-        /* Ini menangani tombol biasa jika atribut `kind` tidak tersedia */
-        .stButton>button {
-            background-color: #444444;
-            color: white;
-            border: 1px solid #888888;
-            padding: 0.5em 1em;
-            border-radius: 8px;
-        }
-
-        .stButton>button:hover {
-            background-color: #555555;
-            color: white;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-
-
 #CODING BUAT BACKGROUND, FONT, BUTTON
 st.markdown(
     """
