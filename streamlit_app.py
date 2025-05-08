@@ -22,7 +22,7 @@ st.markdown(
     }
 
     div.stButton > button {
-        color: white;
+        color: black;
         background-color: #FF6B6B;
         border: none;
         border-radius: 12px;
