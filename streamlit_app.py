@@ -22,18 +22,41 @@ st.markdown("""
             color: white !important;
         }
 
-        /* Styling untuk number_input */
+        /* Styling untuk input angka */
         input[type="number"] {
             background-color: #333333;
             color: white;
             border: 1px solid #555555;
-            padding: 0.5em;
             border-radius: 5px;
         }
 
-        /* Styling label teks */
-        label {
+        /* Styling untuk dropdown selectbox */
+        div[data-baseweb="select"] {
+            background-color: #333333;
             color: white;
+        }
+
+        /* Styling untuk dropdown combobox saat terbuka */
+        div[data-baseweb="select"] > div {
+            background-color: #333333 !important;
+            color: white !important;
+        }
+
+        /* Styling untuk list menu pilihan */
+        div[data-baseweb="menu"] {
+            background-color: #333333 !important;
+            color: white !important;
+        }
+
+        /* Styling untuk setiap item di dalam dropdown */
+        div[data-baseweb="option"] {
+            background-color: #333333 !important;
+            color: white !important;
+        }
+
+        /* Hover effect item di dropdown */
+        div[data-baseweb="option"]:hover {
+            background-color: #444444 !important;
         }
     </style>
 """, unsafe_allow_html=True)
