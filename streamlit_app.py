@@ -10,7 +10,7 @@ st.markdown(
     """
     <style>
     body, h1, h2, h3, h4, h5, h6, p, span, label, div, li, ul, ol, select, input, textarea, button {
-        color: #000000 !important;
+        color: white !important;
     }
 
     .stApp {
@@ -33,7 +33,7 @@ st.markdown(
         transition: all 0.3s ease;
     }
     div.stButton > button:hover {
-        background-color: #000000;
+        background-color: #FF6B6B;
         transform: scale(1.05);
     }
 
