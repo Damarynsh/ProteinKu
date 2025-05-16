@@ -33,7 +33,7 @@ st.markdown(
         transition: all 0.3s ease;
     }
     div.stButton > button:hover {
-        background-color: #FF4F4F;
+        background-color: #000000;
         transform: scale(1.05);
     }
 
