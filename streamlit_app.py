@@ -145,7 +145,6 @@ def kalkulator():
     )
 
     if st.button("Hitung Kebutuhan Protein 🍽️"):
-        st.session_state.gender = gender
         st.session_state.age = age
         st.session_state.height = height
         st.session_state.weight = weight
