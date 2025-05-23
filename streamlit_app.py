@@ -132,7 +132,6 @@ def halaman_awal():
 def kalkulator():
     st.title("Kalkulator Kebutuhan Protein Harian")
 
-    gender = st.selectbox("Jenis Kelamin:", ["Pria", "Wanita"])
     age = st.number_input("Umur (tahun):", min_value=1, max_value=120)
     height = st.number_input("Tinggi Badan (cm):", min_value=50, max_value=250)
     weight = st.number_input("Berat Badan (kg):", min_value=10, max_value=300)
